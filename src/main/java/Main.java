@@ -33,6 +33,7 @@ public class Main {
                     UserDAO.insertUser(username, isScrumMaster);
                 }
                 case 2 -> QueryUsers.getUsers();
+
                 case 3 -> {
                     System.out.println("Exiting...");
                     scanner.close();
