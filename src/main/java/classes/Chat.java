@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class Chat {
     private String chatName;
-    private ArrayList<String> chatMessages; ;
+    private ArrayList<Message> chatMessages; ;
     private int sprintID;
 
-    public Chat(String chatName, int sprintID, ArrayList<String> chatMessages) {
+    public Chat(String chatName, int sprintID) {
         this.chatName = chatName;
         this.sprintID = sprintID;
-        this.chatMessages = chatMessages;
+        chatMessages = new ArrayList<>();
     }
 
     public String getChatName() {
@@ -20,7 +20,7 @@ public class Chat {
     public int getSprintID() {
         return this.sprintID;
     }
-    public ArrayList<String> getChatMessages() {
+    public ArrayList<Message> getChatMessages() {
         return this.chatMessages;
     }
 
@@ -32,7 +32,7 @@ public class Chat {
         this.sprintID = sprintID;
     }
 
-    public void setChatMessages(ArrayList<String> chatMessages) {
+    public void setChatMessages(ArrayList<Message> chatMessages) {
         this.chatMessages = chatMessages;
     }
 }
