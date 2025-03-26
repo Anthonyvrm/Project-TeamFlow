@@ -28,7 +28,7 @@ public class Message {
         this.message = message;
     }
 
-    public boolean getIsHiglighted(boolean isHighlighted) {
+    public boolean getIsHighlighted(boolean isHighlighted) {
         return this.isHighlighted;
     }
 
