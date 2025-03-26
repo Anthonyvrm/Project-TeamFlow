@@ -2,7 +2,7 @@ package classes;
 
 public class Message {
 
-    User user;
+    private User user;
     private String message;
     private boolean ishighlighted;
 
