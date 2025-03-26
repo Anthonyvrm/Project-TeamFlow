@@ -5,6 +5,11 @@ public class Epic implements Linker {
     private String epicDescription;
     private UserStory userStory;
 
+    public Epic(String epicName, String epicDescription, UserStory userStory) {
+        this.epicName = epicName;
+        this.epicDescription = epicDescription;
+        this.userStory = userStory;
+    }
     public void setEpicName(String epicName) {
         this.epicName = epicName;
     }

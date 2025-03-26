@@ -6,6 +6,12 @@ public class UserStory implements Linker {
     private String usDescription ;
     private ArrayList<Task>  tasks ;
 
+    public UserStory(String usName, String usDescription) {
+        this.usName = usName;
+        this.usDescription = usDescription;
+        this.tasks = new ArrayList<Task>();
+    }
+
     public void setTasks(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
@@ -28,12 +34,6 @@ public class UserStory implements Linker {
 
     public String getUsDescription() {
         return this.usDescription;
-    }
-
-    public UserStory(String usName, String usDescription) {
-        this.usName = usName;
-        this.usDescription = usDescription;
-        this.tasks = new ArrayList<Task>();
     }
 
     @Override
