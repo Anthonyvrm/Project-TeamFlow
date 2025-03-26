@@ -8,6 +8,7 @@ public class Sprint {
     private Chat chat;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+
     public Sprint(int sprintInt, Chat chat) {
         this.sprintInt = sprintInt;
         this.chat = chat;

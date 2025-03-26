@@ -28,11 +28,11 @@ public class Message {
         this.message = message;
     }
 
-    public boolean getIsHighlighted(boolean isHighlighted) {
+    public boolean getIsHiglighted(boolean ishighlighted) {
         return this.isHighlighted;
     }
 
-    public void setIsHighlighted() {
+    public void setIshighlighted() {
         this.isHighlighted = isHighlighted;
     }
 

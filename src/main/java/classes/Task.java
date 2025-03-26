@@ -2,7 +2,7 @@ package classes;
 
 import java.util.ArrayList;
 
-public class Task implements Linker{
+public class Task implements Linker {
     private UserStory userStory;
     private String taskDescription;
     private ArrayList <Message> taskMessages;

@@ -10,7 +10,7 @@ public class Chat {
     public Chat(String chatName, int sprintID) {
         this.chatName = chatName;
         this.sprintID = sprintID;
-        chatMessages = new ArrayList<>();
+        this.chatMessages = new ArrayList<>();
     }
 
     public String getChatName() {
