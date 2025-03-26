@@ -3,11 +3,11 @@ package classes;
 public class User {
 
     private String username;
-    private boolean isscrummaster;
+    private boolean isScrumMaster;
 
-    public User(String username, boolean isscrummaster) {
+    public User(String username, boolean isScrumMaster) {
         this.username = username;
-        this.isscrummaster = isscrummaster;
+        this.isScrumMaster = isScrumMaster;
     }
 
     public String getUsername() {
@@ -19,11 +19,11 @@ public class User {
     }
 
     public boolean getIsScrumMaster() {
-        return this.isscrummaster;
+        return this.isScrumMaster;
     }
 
-    public void setIsScrumMaster(boolean isscrummaster) {
-        this.isscrummaster = isscrummaster;
+    public void setIsScrumMaster(boolean isScrumMaster) {
+        this.isScrumMaster = isScrumMaster;
     }
 }
 
