@@ -2,7 +2,7 @@ package classes;
 
 import java.util.ArrayList;
 
-public class Task {
+public class Task implements Linker{
     private UserStory userStory;
     private String taskDescription;
     private ArrayList <Message> taskMessages;
@@ -37,5 +37,6 @@ public class Task {
         return userStory;
     }
 
+    @Override
     public void linkMessage () {}
 }
