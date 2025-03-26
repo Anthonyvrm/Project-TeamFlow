@@ -9,7 +9,7 @@ public class UserStory implements Linker {
     public UserStory(String usName, String usDescription) {
         this.usName = usName;
         this.usDescription = usDescription;
-        this.tasks = new ArrayList<Task>();
+        this.tasks = new ArrayList<>();
     }
 
     public void setTasks(ArrayList<Task> tasks) {
