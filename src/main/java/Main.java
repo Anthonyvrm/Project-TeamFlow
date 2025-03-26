@@ -1,5 +1,4 @@
 package main;
-
 import database.DatabaseSetup;
 import dao.UserDAO;
 import queries.QueryUsers;
