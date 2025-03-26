@@ -35,4 +35,9 @@ public class Chat {
     public void setChatMessages(ArrayList<Message> chatMessages) {
         this.chatMessages = chatMessages;
     }
+    public void viewChatMessages() {
+
+    }
+
+
 }
