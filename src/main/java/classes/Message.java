@@ -4,12 +4,12 @@ public class Message {
 
     private User user;
     private String message;
-    private boolean ishighlighted;
+    private boolean isHighlighted;
 
-    public Message(User user, String message, boolean ishighlighted) {
+    public Message(User user, String message, boolean isHighlighted) {
         this.user = user;
         this.message = message;
-        this.ishighlighted = ishighlighted;
+        this.isHighlighted = isHighlighted;
     }
 
     public User getUser(User user) {
@@ -29,11 +29,11 @@ public class Message {
     }
 
     public boolean getIsHiglighted(boolean ishighlighted) {
-        return this.ishighlighted;
+        return this.isHighlighted;
     }
 
     public void setIshighlighted() {
-        this.ishighlighted = ishighlighted;
+        this.isHighlighted = isHighlighted;
     }
 
     public void markMessageAsImportant(Message message) {

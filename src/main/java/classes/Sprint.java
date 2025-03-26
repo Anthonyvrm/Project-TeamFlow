@@ -13,8 +13,6 @@ public class Sprint {
         this.chat = chat;
         this.startDate = LocalDateTime.now();
         this.endDate = startDate.plusDays(14);
-
-
     }
 
     public LocalDateTime getEndDate() {
