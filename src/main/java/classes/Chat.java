@@ -2,6 +2,7 @@ package classes;
 
 import java.util.ArrayList;
 
+
 public class Chat {
     private String chatName;
     private ArrayList<Message> chatMessages; ;
@@ -35,9 +36,11 @@ public class Chat {
     public void setChatMessages(ArrayList<Message> chatMessages) {
         this.chatMessages = chatMessages;
     }
+
     public void viewChatMessages() {
 
     }
+
 
 
 }

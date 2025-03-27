@@ -1,5 +1,7 @@
 package classes;
 
+import dao.MessageDAO;
+
 public class Message {
 
     private User user;
@@ -40,8 +42,9 @@ public class Message {
         //dev
     }
 
-    public void sendMessageToChat() {
-        //dev
+    private static final String DB_URL = "jdbc:sqlite:teamflowdatabase.db";
+    public void sendMessageToChat(String message) {
+        MessageDAO.insertMessage(user , message, isHighlighted, chatID);
     }
 }
 
