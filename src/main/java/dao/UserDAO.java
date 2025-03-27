@@ -1,5 +1,6 @@
 package dao;
 
+import classes.User;
 import database.DatabaseConnection;
 
 import java.sql.Connection;
@@ -8,7 +9,7 @@ import java.sql.SQLException;
 
 public class UserDAO {
     public static void insertUser(String username, boolean isScrumMaster) {
-        String sql = "INSERT INTO User(username, isScrumMaster) VALUES(?, ?)";
+        String sql = "INSERT INTO Users(username, isScrumMaster) VALUES(?, ?)";
 
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

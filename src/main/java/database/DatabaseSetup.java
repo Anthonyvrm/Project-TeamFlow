@@ -6,8 +6,8 @@ import java.sql.Statement;
 
 public class DatabaseSetup {
     public static void createTables() {
-        String createUserTable = """
-        CREATE TABLE IF NOT EXISTS User (
+        String createUsersTable = """
+        CREATE TABLE IF NOT EXISTS Users (
             userID INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT UNIQUE NOT NULL,
             isScrumMaster BOOLEAN DEFAULT FALSE
@@ -81,7 +81,7 @@ public class DatabaseSetup {
 
         try (Connection conn = DatabaseConnection.connect();
              Statement stmt = conn.createStatement()) {
-            stmt.execute(createUserTable);
+            stmt.execute(createUsersTable);
             stmt.execute(createSprintTable);
             stmt.execute(createChatTable);
             stmt.execute(createEpicTable);
