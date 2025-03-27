@@ -14,7 +14,7 @@ public class MessageDAO {
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, user.getUserID()); // Haal userID uit het User-object
+            pstmt.setInt(1, user.getUserID());
             pstmt.setString(2, message);
             pstmt.setBoolean(3, isHighlighted);
             pstmt.setInt(4, chat.getChatID());
