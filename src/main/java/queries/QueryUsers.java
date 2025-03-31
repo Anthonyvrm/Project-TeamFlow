@@ -7,7 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class QueryUsers {
+public class
+QueryUsers {
     public static void getUsers() {
         String sql = "SELECT * FROM User";
 
