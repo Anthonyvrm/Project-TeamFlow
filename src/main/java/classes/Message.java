@@ -5,11 +5,17 @@ public class Message {
     private User user;
     private String message;
     private boolean isHighlighted;
+    private int userID;
+    private int messageID;
+    private int chatID;
 
-    public Message(User user, String message, boolean isHighlighted) {
+    public Message(User user, String message, boolean isHighlighted, int userID, int messageID, int chatID) {
         this.user = user;
         this.message = message;
         this.isHighlighted = isHighlighted;
+        this.userID = userID;
+        this.messageID = messageID;
+        this.chatID = chatID;
     }
 
     public User getUser(User user) {
@@ -35,6 +41,15 @@ public class Message {
     public void setIshighlighted() {
         this.isHighlighted = isHighlighted;
     }
+
+    public int getUserID(){return this.userID;}
+    public void setUserID(){this.userID = userID;}
+
+    public int getChatID(){return chatID;}
+    public void setChatID(){this.chatID = chatID;}
+
+    public int getMessageID(){return this.messageID;}
+    public int setMessageID(){this.messageID = messageID;}
 
     public void markMessageAsImportant(Message message) {
         //dev
