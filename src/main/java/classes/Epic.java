@@ -52,6 +52,5 @@ public class Epic implements Linker {
 
     @Override
     public void linkMessage() {
-
     }
 }
