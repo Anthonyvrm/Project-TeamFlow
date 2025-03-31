@@ -5,13 +5,13 @@ import java.util.ArrayList;
 
 public class Sprint {
     private int sprintInt;
-    private Chat chat;
+    private int sprintID;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    public Sprint(int sprintInt, Chat chat) {
+    public Sprint(int sprintInt, int sprintID, LocalDateTime startDate, LocalDateTime endDate) {
         this.sprintInt = sprintInt;
-        this.chat = chat;
+        this.sprintID = sprintID;
         this.startDate = LocalDateTime.now();
         this.endDate = startDate.plusDays(14);
     }
@@ -28,16 +28,16 @@ public class Sprint {
         return this.sprintInt;
     }
 
-    public Chat getChat() {
-        return this.chat;
+    public int getSprintID() {
+        return this.sprintID;
     }
 
     public void setSprintInt(int sprintInt) {
         this.sprintInt = sprintInt;
     }
 
-    public void setChat(Chat chat) {
-        this.chat = chat;
+    public void setSprintID(int sprintID) {
+        this.sprintID = sprintID;
     }
 
     public void setEndDate(LocalDateTime endDate) {
