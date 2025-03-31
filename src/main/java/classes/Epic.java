@@ -1,6 +1,7 @@
 package classes;
 
 public class Epic implements Linker {
+
     private String epicName;
     private String epicDescription;
     private UserStory userStory;

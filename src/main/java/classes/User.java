@@ -4,10 +4,12 @@ public class User {
 
     private String username;
     private boolean isScrumMaster;
+    private int userID;
 
-    public User(String username, boolean isScrumMaster) {
+    public User(String username, boolean isScrumMaster, int userID) {
         this.username = username;
         this.isScrumMaster = isScrumMaster;
+        this.userID = userID;
     }
 
     public String getUsername() {
@@ -25,5 +27,8 @@ public class User {
     public void setIsScrumMaster(boolean isScrumMaster) {
         this.isScrumMaster = isScrumMaster;
     }
+
+    public int getUserID() { return this.userID;}
+    public void setUserID() { this.userID = userID;}
 }
 
