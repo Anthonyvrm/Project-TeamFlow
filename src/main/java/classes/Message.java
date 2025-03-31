@@ -42,14 +42,29 @@ public class Message {
         this.isHighlighted = isHighlighted;
     }
 
-    public int getUserID(){return this.userID;}
-    public void setUserID(){this.userID = userID;}
+    public int getUserID(int userID) {
+        return this.userID;
+    }
 
-    public int getChatID(){return chatID;}
-    public void setChatID(){this.chatID = chatID;}
+    public void setUserID() {
+        this.userID = userID;
+    }
 
-    public int getMessageID(){return this.messageID;}
-    public int setMessageID(){this.messageID = messageID;}
+    public int getChatID(int chatID) {
+        return chatID;
+    }
+
+    public void setChatID() {
+        this.chatID = chatID;
+    }
+
+    public int getMessageID(int messageID) {
+        return this.messageID;
+    }
+
+    public void setMessageID() {
+        this.messageID = messageID;
+    }
 
     public void markMessageAsImportant(Message message) {
         //dev
@@ -58,6 +73,7 @@ public class Message {
     public void sendMessageToChat() {
         //dev
     }
+
 }
 
 
