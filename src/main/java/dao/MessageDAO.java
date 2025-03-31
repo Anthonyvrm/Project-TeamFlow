@@ -9,17 +9,18 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class MessageDAO {
-    public static void insertMessage(User user, String message, boolean isHighlighted, Chat chat) {
-        String sql = "INSERT INTO Message(userID ,message, isHighlighted, chatID) VALUES(?, ?, ?, ?)";
+    public static void insertMessage(int messageID, User user, String message, boolean isHighlighted, Chat chat) {
+        String sql = "INSERT INTO Message(messageID, userID ,message, isHighlighted, chatID) VALUES(?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, user.getUserID());
-            pstmt.setString(2, message);
-            pstmt.setBoolean(3, isHighlighted);
-            pstmt.setInt(4, chat.getChatID());
+            pstmt.setInt(1, messageID);
+            pstmt.setInt(2, user.getUserID());
+            pstmt.setString(3, message);
+            pstmt.setBoolean(4, isHighlighted);
+            pstmt.setInt(5, chat.getChatID());
             pstmt.executeUpdate();
-            System.out.println("User inserted successfully.");
+            System.out.println("Message inserted successfully.");
         } catch (SQLException e) {
             System.out.println("Insert failed: " + e.getMessage());
         }
