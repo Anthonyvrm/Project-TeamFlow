@@ -51,7 +51,7 @@ public class Message {
     }
 
     public int getChatID(int chatID) {
-        return chatID;
+        return this.chatID;
     }
 
     public void setChatID() {
