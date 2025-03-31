@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class QueryTemplate {
+public class QueryMessage {
 
     /**
      * Executes a SQL query and processes the results.
