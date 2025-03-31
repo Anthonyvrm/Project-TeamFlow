@@ -1,21 +1,19 @@
 package classes;
 
+import dao.MessageDAO;
+
 public class Message {
 
     private User user;
     private String message;
     private boolean isHighlighted;
-    private int userID;
-    private int messageID;
-    private int chatID;
+    private Chat chat;
 
-    public Message(User user, String message, boolean isHighlighted, int userID, int messageID, int chatID) {
+    public Message(User user, String message, boolean isHighlighted, int userID, Chat chat) {
         this.user = user;
         this.message = message;
         this.isHighlighted = isHighlighted;
-        this.userID = userID;
-        this.messageID = messageID;
-        this.chatID = chatID;
+        this.chat = chat;
     }
 
     public User getUser(User user) {
@@ -26,7 +24,7 @@ public class Message {
         this.user = user;
     }
 
-    public String getMessage(String message) {
+    public String getMessage() {
         return this.message;
     }
 
@@ -42,28 +40,13 @@ public class Message {
         this.isHighlighted = isHighlighted;
     }
 
-    public int getUserID(int userID) {
-        return this.userID;
+
+    public Chat getChat(Chat chat) {
+        return this.chat;
     }
 
-    public void setUserID() {
-        this.userID = userID;
-    }
-
-    public int getChatID(int chatID) {
-        return this.chatID;
-    }
-
-    public void setChatID() {
-        this.chatID = chatID;
-    }
-
-    public int getMessageID(int messageID) {
-        return this.messageID;
-    }
-
-    public void setMessageID() {
-        this.messageID = messageID;
+    public void setChat() {
+        this.chat = chat;
     }
 
     public void markMessageAsImportant(Message message) {
@@ -71,11 +54,7 @@ public class Message {
     }
 
     public void sendMessageToChat() {
-        //dev
+        MessageDAO.insertMessage(this.user, this.message, this.isHighlighted, this.chat);
     }
 
 }
-
-
-
-
