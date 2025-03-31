@@ -34,8 +34,8 @@ public class DatabaseSetup {
         CREATE TABLE IF NOT EXISTS Epic (
             epicID INTEGER PRIMARY KEY AUTOINCREMENT,
             epicName TEXT NOT NULL,
-            sprintID INTEGER,
             epicDescription TEXT NOT NULL,
+            sprintID INTEGER,
             chatID INTEGER,
             FOREIGN KEY (sprintID) REFERENCES Sprint(sprintID),
             FOREIGN KEY (chatID) REFERENCES Chat(chatID)

@@ -41,8 +41,9 @@ public class Chat {
         this.chatMessages = chatMessages;
     }
     public void viewChatMessages() {
-
+        for (Message message : chatMessages) {
+            System.out.println(message.getMessage());
+        }
     }
-
 
 }
