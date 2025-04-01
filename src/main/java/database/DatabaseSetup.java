@@ -69,10 +69,10 @@ public class DatabaseSetup {
         String createMessageTable = """
         CREATE TABLE IF NOT EXISTS Message (
             messageID INTEGER PRIMARY KEY AUTOINCREMENT,
-            userID INTEGER,
+            userID INTEGER NOT NULL,
             message TEXT NOT NULL,
             isHighlighted BOOLEAN DEFAULT FALSE,
-            chatID INTEGER,
+            chatID INTEGER NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (userID) REFERENCES User(userID),
             FOREIGN KEY (chatID) REFERENCES Chat(chatID)

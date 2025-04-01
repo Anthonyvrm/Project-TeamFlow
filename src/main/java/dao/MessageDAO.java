@@ -17,7 +17,6 @@ public class MessageDAO {
             pstmt.setInt(1, user.getUserID());
             pstmt.setString(2, message);
             pstmt.setBoolean(3, isHighlighted);
-            pstmt.setInt(4, chat.getChatID());
             pstmt.executeUpdate();
             System.out.println("Message inserted successfully.");
         } catch (SQLException e) {
