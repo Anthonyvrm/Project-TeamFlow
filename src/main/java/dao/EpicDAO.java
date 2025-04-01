@@ -11,8 +11,8 @@ import java.sql.SQLException;
 
 
 public class EpicDAO {
-    public static void insertEpic(String epicName, String epicDescription, UserStory userStory, int epicID, Sprint sprint) {
-        String sql = "INSERT INTO Epic(epicName, epicDescription) VALUES";
+    public static void insertEpic(String epicName, String epicDescription) {
+        String sql = "INSERT INTO Epic(epicName, epicDescription) VALUES(?,?)";
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, epicName);
@@ -27,6 +27,7 @@ public class EpicDAO {
     }
 
     public static void main(String[] args) {
+        insertEpic("Epic1" , "Epic1 Description");
 
 
 
