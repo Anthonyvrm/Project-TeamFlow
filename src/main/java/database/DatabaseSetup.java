@@ -34,8 +34,8 @@ public class DatabaseSetup {
         CREATE TABLE IF NOT EXISTS Epic (
             epicID INTEGER PRIMARY KEY AUTOINCREMENT,
             epicName TEXT NOT NULL,
-            sprintID INTEGER,
             epicDescription TEXT NOT NULL,
+            sprintID INTEGER,
             chatID INTEGER,
             FOREIGN KEY (sprintID) REFERENCES Sprint(sprintID),
             FOREIGN KEY (chatID) REFERENCES Chat(chatID)
@@ -69,10 +69,10 @@ public class DatabaseSetup {
         String createMessageTable = """
         CREATE TABLE IF NOT EXISTS Message (
             messageID INTEGER PRIMARY KEY AUTOINCREMENT,
-            userID INTEGER,
+            userID INTEGER NOT NULL,
             message TEXT NOT NULL,
             isHighlighted BOOLEAN DEFAULT FALSE,
-            chatID INTEGER,
+            chatID INTEGER NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (userID) REFERENCES User(userID),
             FOREIGN KEY (chatID) REFERENCES Chat(chatID)

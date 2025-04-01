@@ -5,12 +5,12 @@ import java.util.ArrayList;
 public class Chat {
     private String chatName;
     private ArrayList<Message> chatMessages;
-    private int chatID;
+    private Chat chat;
 
-    public Chat(String chatName, int chatID, ArrayList<Message> chatMessages) {
+    public Chat(String chatName, Chat chat) {
         this.chatName = chatName;
         this.chatMessages = new ArrayList<>();
-        this.chatID = chatID;
+        this.chat = chat;
 
     }
 
@@ -18,12 +18,12 @@ public class Chat {
         return this.chatName;
     }
 
-    public int getChatID() {
-        return this.chatID;
+    public Chat getChat() {
+        return this.chat;
     }
 
-    public void setChatID(int chatID) {
-        this.chatID = chatID;
+    public void setChat(Chat chat) {
+        this.chat = chat;
     }
 
 
@@ -40,9 +40,14 @@ public class Chat {
     public void setChatMessages(ArrayList<Message> chatMessages) {
         this.chatMessages = chatMessages;
     }
-    public void viewChatMessages() {
-
+    public void viewChatMessages() {        // Print alle verstuurde berichten uit 1 chat onder elkaar, met * voor het bericht als deze is gehighlight.
+        for (Message message : chatMessages) {
+            if (message.getIsHighlighted()) {
+                System.out.print("*");
+            }
+            System.out.print(message.getUser() + ": ");
+            System.out.println(message.getMessage());
+        }
     }
-
 
 }

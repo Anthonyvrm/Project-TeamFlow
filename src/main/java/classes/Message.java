@@ -1,81 +1,60 @@
 package classes;
 
-public class Message {
+import dao.MessageDAO;
 
+public class Message {
     private User user;
     private String message;
     private boolean isHighlighted;
-    private int userID;
-    private int messageID;
-    private int chatID;
+    private Chat chat;
 
-    public Message(User user, String message, boolean isHighlighted, int userID, int messageID, int chatID) {
+    public Message(User user, String message, boolean isHighlighted, Chat chat) {
         this.user = user;
         this.message = message;
         this.isHighlighted = isHighlighted;
-        this.userID = userID;
-        this.messageID = messageID;
-        this.chatID = chatID;
+        this.chat = chat;
     }
 
-    public User getUser(User user) {
+    public User getUser() {
         return this.user;
     }
-
-    public void setUser() {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public String getMessage(String message) {
+    public String getMessage() {
         return this.message;
     }
-
-    public void setMessage() {
+    public void setMessage(String message) {
         this.message = message;
     }
 
-    public boolean getIsHiglighted(boolean ishighlighted) {
+    public boolean getIsHighlighted() {
         return this.isHighlighted;
     }
-
-    public void setIshighlighted() {
+    public void setIsHighlighted(boolean isHighlighted) {
         this.isHighlighted = isHighlighted;
     }
 
-    public int getUserID(int userID) {
-        return this.userID;
+    public Chat getChat() {
+        return this.chat;
+    }
+    public void setChat(Chat chat) {
+        this.chat = chat;
     }
 
-    public void setUserID() {
-        this.userID = userID;
+    public void markMessageAsImportant(Message message) { //Markeert of demarkeert een Message
+        if(getUser().getIsScrumMaster()){
+            message.setIsHighlighted(!message.getIsHighlighted());
+            System.out.println("The Message is (de)highlighted!");
+        } else {
+            System.out.println("You are not allowed to highlight a message.");
+        }
+
+
     }
 
-    public int getChatID(int chatID) {
-        return this.chatID;
+    public void sendMessageToChat() { //Stuurt een message naar een chat
+        MessageDAO.insertMessage(this.user, this.message, this.isHighlighted, this.chat);
     }
-
-    public void setChatID() {
-        this.chatID = chatID;
-    }
-
-    public int getMessageID(int messageID) {
-        return this.messageID;
-    }
-
-    public void setMessageID() {
-        this.messageID = messageID;
-    }
-
-    public void markMessageAsImportant(Message message) {
-        //dev
-    }
-
-    public void sendMessageToChat() {
-        //dev
-    }
-
 }
-
-
-
-
