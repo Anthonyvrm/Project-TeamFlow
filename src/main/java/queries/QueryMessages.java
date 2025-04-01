@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class QueryMessages {
-    public static void getMessage() {
+    public static void getMessageQuery() {
         String sql = "SELECT * FROM Message";
 
         try (Connection conn = DatabaseConnection.connect();
@@ -44,7 +44,7 @@ public class QueryMessages {
     }
 
     public static void main(String[] args) {
-        getMessage();
+        getMessageQuery();
     }
 }
 
