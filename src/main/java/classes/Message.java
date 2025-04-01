@@ -43,11 +43,18 @@ public class Message {
         this.chat = chat;
     }
 
-    public void markMessageAsImportant(Message message) {
-        message.setIsHighlighted(true);
+    public void markMessageAsImportant(Message message) { //Markeert of demarkeert een Message
+        if(getUser().getIsScrumMaster()){
+            message.setIsHighlighted(!message.getIsHighlighted());
+            System.out.println("The Message is (de)highlighted!");
+        } else {
+            System.out.println("You are not allowed to highlight a message.");
+        }
+
+
     }
 
-    public void sendMessageToChat() {
+    public void sendMessageToChat() { //Stuurt een message naar een chat
         MessageDAO.insertMessage(this.user, this.message, this.isHighlighted, this.chat);
     }
 }

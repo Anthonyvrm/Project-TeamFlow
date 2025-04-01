@@ -40,7 +40,7 @@ public class Chat {
     public void setChatMessages(ArrayList<Message> chatMessages) {
         this.chatMessages = chatMessages;
     }
-    public void viewChatMessages() {
+    public void viewChatMessages() {        // Print alle verstuurde berichten uit 1 chat onder elkaar, met * voor het bericht als deze is gehighlight.
         for (Message message : chatMessages) {
             if (message.getIsHighlighted()) {
                 System.out.print("*");
