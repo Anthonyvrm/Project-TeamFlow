@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class QuerySprint {
     public static void getSprintQuery() {
-        String sql = "SELECT sprintID, sprintInt FROM Sprint";
+        String sql = "SELECT * FROM Sprint";
 
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql);

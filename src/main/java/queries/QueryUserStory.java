@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class QueryUserStory {
     public static void getUserStoriesQuery() {
 
-        String sql = "SELECT usID, usName, usDesc, epicID, chatID FROM Userstory";
+        String sql = "SELECT * FROM Userstory";
 
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql);
