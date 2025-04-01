@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class SprintDAO {
-    public static void insertSprint(int sprintInt, int sprintID, LocalDateTime startDate, LocalDateTime endDate) {
+    public static void insertSprint(int sprintInt, LocalDateTime startDate, LocalDateTime endDate) {
         String sql = "INSERT INTO Sprint(sprintInt, startDate, endDate) VALUES(?, ?, ?)";
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
