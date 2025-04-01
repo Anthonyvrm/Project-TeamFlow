@@ -13,8 +13,8 @@ public class SprintDAO {
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, sprintInt);
-            pstmt.setTimestamp(3, java.sql.Timestamp.valueOf(startDate));
-            pstmt.setTimestamp(4, java.sql.Timestamp.valueOf(endDate));
+            pstmt.setTimestamp(2, java.sql.Timestamp.valueOf(startDate));
+            pstmt.setTimestamp(3, java.sql.Timestamp.valueOf(endDate));
             pstmt.executeUpdate();
             System.out.println("Sprint inserted successfully.");
         } catch (SQLException e) {
@@ -25,6 +25,11 @@ public class SprintDAO {
     }
 
     public static void main(String[] args) {
+        int sprintNumber = 1;
+        LocalDateTime startDate = LocalDateTime.now();
+        LocalDateTime endDate = startDate.plusWeeks(2);
+
+        insertSprint(sprintNumber, startDate, endDate);
 
 
 
