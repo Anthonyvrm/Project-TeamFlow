@@ -22,6 +22,7 @@ public class UserDAO {
     }
 
     public static void main(String[] args) {
+
         insertUser("Anthony", false);
         insertUser("Robbert", true);
         insertUser("Mirtan", false);
