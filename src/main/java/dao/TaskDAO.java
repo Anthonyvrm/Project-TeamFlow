@@ -1,6 +1,4 @@
 package dao;
-import classes.Chat;
-import classes.User;
 
 import database.DatabaseConnection;
 
@@ -8,18 +6,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class MessageDAO {
-    public static void insertMessage(User user, String message, boolean isHighlighted, Chat chat) {
-        String sql = "INSERT INTO Message(userID ,message, isHighlighted, chatID) VALUES(?, ?, ?, ?)";
+public class TaskDAO {
+    public static void insertTask(String taskName, String taskDescription) {
+        String sql = "INSERT INTO Task(taskName,taskDescription) VALUES(?,?)";
+
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setInt(1, user.getUserID());
-            pstmt.setString(2, message);
-            pstmt.setBoolean(3, isHighlighted);
+            pstmt.setString(1, taskName);
+            pstmt.setString(2, taskDescription);
 
             pstmt.executeUpdate();
-            System.out.println("Message inserted successfully.");
+            System.out.println("Task inserted successfully.");
         } catch (SQLException e) {
             System.out.println("Insert failed: " + e.getMessage());
         }
@@ -27,8 +24,7 @@ public class MessageDAO {
 
     public static void main(String[] args) {
 
-
+        insertTask("Task1" , "Task1 Description");
 
     }
 }
-
