@@ -29,6 +29,6 @@ public class User {
     }
 
     public int getUserID() { return this.userID;}
-    public void setUserID() { this.userID = userID;}
+    public void setUserID(int userID) { this.userID = userID;}
 }
 
