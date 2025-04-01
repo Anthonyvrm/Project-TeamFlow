@@ -18,7 +18,7 @@ public class QueryChats {
 
                 int chatId = rs.getInt("chatID");
                 String chatName = rs.getString("chatName");
-                int sprintId = rs.getInt("SprintID");
+                int sprintId = rs.getInt("sprintID");
 
                 System.out.println("Chat ID: " + chatId +
                         ", Chat Name: " + chatName +
