@@ -8,12 +8,14 @@ public class Sprint {
     private int sprintID;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+    private Chat chat;
 
-    public Sprint(int sprintInt, int sprintID, LocalDateTime startDate, LocalDateTime endDate) {
+    public Sprint(int sprintInt, int sprintID, LocalDateTime startDate, LocalDateTime endDate, Chat chat) {
         this.sprintInt = sprintInt;
         this.sprintID = sprintID;
         this.startDate = LocalDateTime.now();
         this.endDate = startDate.plusDays(14);
+        this.chat = chat;
     }
 
     public LocalDateTime getEndDate() {
@@ -46,5 +48,13 @@ public class Sprint {
 
     public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
+    }
+
+    public Chat getChat() {
+        return chat;
+    }
+
+    public void setChat(Chat chat) {
+        this.chat = chat;
     }
 }
