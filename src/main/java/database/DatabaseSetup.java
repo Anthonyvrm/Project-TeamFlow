@@ -15,11 +15,14 @@ public class DatabaseSetup {
         """;
 
         String createSprintTable = """
-        CREATE TABLE IF NOT EXISTS Sprint (
-            sprintID INTEGER PRIMARY KEY AUTOINCREMENT,
-            sprintInt INTEGER NOT NULL
-        );
-        """;
+    CREATE TABLE IF NOT EXISTS Sprint (
+        sprintID INTEGER PRIMARY KEY AUTOINCREMENT,
+        sprintInt INTEGER NOT NULL,
+        startDate TIMESTAMP NOT NULL,
+        endDate TIMESTAMP NOT NULL
+    );
+    """;
+
 
         String createChatTable = """
         CREATE TABLE IF NOT EXISTS Chat (
