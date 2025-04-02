@@ -11,6 +11,8 @@ target/
 *.iws
 *.iml
 *.ipr
+src/main/resources/database/teamflowdatabase.db
+
 
 ### Eclipse ###
 .apt_generated
