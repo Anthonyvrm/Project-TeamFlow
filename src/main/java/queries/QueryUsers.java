@@ -1,5 +1,6 @@
 package queries;
 
+import classes.User;
 import database.DatabaseConnection;
 
 import java.sql.Connection;
@@ -23,6 +24,34 @@ public class QueryUsers {
 
         } catch (SQLException e) {
             System.out.println("Query failed: " + e.getMessage());
+        }
+    }
+
+    public static User getSingleUser(String username) {
+        String sql = "SELECT * FROM User WHERE username = ?";  // Gebruik parameterized query
+
+        try (Connection conn = DatabaseConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, username); // Stel de username in als parameter
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) { // Controleer of er een gebruiker is gevonden
+                    int userID = rs.getInt("userID");
+                    String retrievedUsername = rs.getString("username");
+                    boolean isScrumMaster = rs.getBoolean("isScrumMaster");
+
+                    // Maak en retourneer een User-object
+                    return new User(retrievedUsername, isScrumMaster, userID);
+                } else {
+                    System.out.println("User not found.");
+                    return null;  // Return null als geen gebruiker gevonden is
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+            return null;
         }
     }
 
