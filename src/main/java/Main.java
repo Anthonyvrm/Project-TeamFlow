@@ -1,5 +1,5 @@
+import dao.*;
 import database.DatabaseSetup;
-import dao.UserDAO;
 import queries.QueryUsers;
 
 import java.util.Scanner;
@@ -10,6 +10,14 @@ public class Main {
 
         // Initialize the database
         DatabaseSetup.createTables();
+
+        UserDAO.insertTestUser();
+        ChatDAO.insertTestChat();
+        EpicDAO.insertTestEpic();
+        SprintDAO.insertTestSprint();
+        TaskDAO.insertTestTask();
+        UserstoryDAO.insertTestUserstory();
+
 
         while (true) {
             System.out.println("\n===== SQLite User Management =====");

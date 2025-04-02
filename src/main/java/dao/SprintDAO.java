@@ -24,7 +24,7 @@ public class SprintDAO {
 
     }
 
-    public static void main(String[] args) {
+    public static void insertTestSprint() {
         int sprintNumber = 1;
         LocalDateTime startDate = LocalDateTime.now();
         LocalDateTime endDate = startDate.plusWeeks(2);

@@ -21,7 +21,7 @@ public class ChatDAO {
         }
     }
 
-    public static void main(String[] args) {
+    public static void insertTestChat() {
 
         insertChat("Chat1");
 

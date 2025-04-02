@@ -22,7 +22,7 @@ public class TaskDAO {
         }
     }
 
-    public static void main(String[] args) {
+    public static void insertTestTask() {
 
         insertTask("Task1" , "Task1 Description");
 

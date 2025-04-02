@@ -26,7 +26,7 @@ public class EpicDAO {
 
     }
 
-    public static void main(String[] args) {
+    public static void insertTestEpic() {
         insertEpic("Epic1" , "Epic1 Description");
 
 
