@@ -1,6 +1,7 @@
 package classes;
 import dao.MessageDAO;
 import dao.UserDAO;
+import queries.QueryChats;
 import queries.QueryUsers;
 
 import java.util.Scanner;
@@ -57,7 +58,7 @@ public class CLI {
                 }
                 case 2 -> {
                     QueryUsers.getUsers();
-                    System.out.print("Choose user: ");
+                    System.out.print("Choose username: ");
                     String username = scanner.nextLine();
 
                     User selectedUser = QueryUsers.getSingleUser(username);
@@ -69,11 +70,23 @@ public class CLI {
                     System.out.print("Enter Message: ");
                     String message = scanner.nextLine();
 
+
                     System.out.print("Is this message highlighted? (true/false): ");
                     boolean isHighlighted = scanner.nextBoolean();
                     scanner.nextLine();
 
-                    MessageDAO.insertMessage(selectedUser, message, isHighlighted, null);
+                    QueryChats.getChatQuery();
+                    System.out.print("Choose chatID: ");
+                    int chatID = scanner.nextInt();
+
+                    if (QueryChats.getSingleChat(chatID) == null) {
+                        System.out.println("Chat not found. Please try again.");
+                        return;
+                    } else {
+                        MessageDAO.insertMessage(selectedUser, message, isHighlighted, chatID);
+                    }
+
+
                 }
                 case 3 -> {
                     // Toon alle chats

@@ -24,6 +24,10 @@ public class ChatDAO {
     public static void insertTestChat() {
 
         insertChat("Chat1");
+        insertChat("Chat5");
+        insertChat("Chat7");
+        insertChat("Chat40");
+        insertChat("Chat5780");
 
     }
 }

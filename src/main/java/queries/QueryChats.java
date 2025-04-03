@@ -1,5 +1,6 @@
 package queries;
 
+import classes.Chat;
 import database.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,6 +28,32 @@ public class QueryChats {
 
         } catch (SQLException e) {
             System.out.println("Query failed: " + e.getMessage());
+        }
+    }
+
+    public static Chat getSingleChat(int chat) {
+        String sql = "SELECT * FROM Chat WHERE chatID = ?";  // Gebruik parameterized query
+
+        try (Connection conn = DatabaseConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, chat); // Stel de chatName in als parameter
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) { // Controleer of er een gebruiker is gevonden
+                    String retrievedChatName = rs.getString("chatName");
+
+                    // Maak en retourneer een User-object
+                    return new Chat(retrievedChatName);
+                } else {
+                    System.out.println("Chat not found.");
+                    return null;  // Return null als geen gebruiker gevonden is
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+            return null;
         }
     }
 

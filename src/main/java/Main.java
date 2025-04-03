@@ -18,7 +18,6 @@ public class Main {
         TaskDAO.insertTestTask();
         UserstoryDAO.insertTestUserstory();
 
-
         CLI cli = new CLI();
         CLI.main();
     }

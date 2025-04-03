@@ -53,8 +53,4 @@ public class Message {
 
 
     }
-
-    public void sendMessageToChat() { //Stuurt een message naar een chat
-        MessageDAO.insertMessage(this.user, this.message, this.isHighlighted, this.chat);
-    }
 }
