@@ -66,8 +66,7 @@ public class QueryMessages {
                     String createdAtStr = rs.getString("created_at");
 
                     LocalDateTime createdAt = LocalDateTime.parse(createdAtStr, formatter);
-                    Message message = new Message(userId, )
-                    messages.add(message)
+                    messages.add(new Message(QueryUsers.getSingleUserByID(userId), message, false, QueryChats.getSingleChat(chatID)));
                 }
 
                 if (!hasMessages) {
@@ -76,12 +75,13 @@ public class QueryMessages {
                 }
             } catch (SQLException e) {
                 System.out.println("Error retrieving messages: " + e.getMessage());
-                return null;
+                return messages;
             }
         } catch (SQLException e) {
             System.out.println("Database connection error: " + e.getMessage());
-            return null;
+            return messages;
         }
+        return messages;
     }
 
     public static void main(String[] args) {

@@ -27,7 +27,7 @@ public class QueryUsers {
         }
     }
 
-    public static User getSingleUser(String username) {
+    public static User getSingleUserByName(String username) {
         String sql = "SELECT * FROM User WHERE username = ?";  // Gebruik parameterized query
 
         try (Connection conn = DatabaseConnection.connect();
@@ -38,6 +38,34 @@ public class QueryUsers {
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) { // Controleer of er een gebruiker is gevonden
                     int userID = rs.getInt("userID");
+                    String retrievedUsername = rs.getString("username");
+                    boolean isScrumMaster = rs.getBoolean("isScrumMaster");
+
+                    // Maak en retourneer een User-object
+                    return new User(retrievedUsername, isScrumMaster, userID);
+                } else {
+                    System.out.println("User not found.");
+                    return null;  // Return null als geen gebruiker gevonden is
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public static User getSingleUserByID(int userID) {
+        String sql = "SELECT * FROM User WHERE userID = ?";  // Gebruik parameterized query
+
+        try (Connection conn = DatabaseConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, userID); // Stel de username in als parameter
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) { // Controleer of er een gebruiker is gevonden
+                    int retrievedID = rs.getInt("userID");
                     String retrievedUsername = rs.getString("username");
                     boolean isScrumMaster = rs.getBoolean("isScrumMaster");
 

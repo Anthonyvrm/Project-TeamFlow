@@ -1,14 +1,18 @@
 package classes;
 
+import queries.QueryChats;
+import queries.QueryMessages;
+
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Chat {
     private String chatName;
-    private ArrayList<Message> chatMessages;
+    private static ArrayList<Message> chatMessages;
 
     public Chat(String chatName, Chat chat) {
         this.chatName = chatName;
-        this.chatMessages = new ArrayList<>();
+        chatMessages = new ArrayList<>();
     }
 
     public Chat(String retrievedChatName) {
@@ -30,8 +34,9 @@ public class Chat {
     public void setChatMessages(ArrayList<Message> chatMessages) {
         this.chatMessages = chatMessages;
     }
-    public void viewChatMessages() {        // Print alle verstuurde berichten uit 1 chat onder elkaar, met * voor het bericht als deze is gehighlight.
-        for (Message message : chatMessages) {
+    public static void viewChatMessages(int chatID) {// Print alle verstuurde berichten uit 1 chat onder elkaar, met * voor het bericht als deze is gehighlight.
+
+        for (Message message : Objects.requireNonNull(QueryMessages.getChatMessageQuery(chatID))) {
             if (message.getIsHighlighted()) {
                 System.out.print("*");
             }

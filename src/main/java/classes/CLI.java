@@ -62,7 +62,7 @@ public class CLI {
                     System.out.print("Choose username: ");
                     String username = scanner.nextLine();
 
-                    User selectedUser = QueryUsers.getSingleUser(username);
+                    User selectedUser = QueryUsers.getSingleUserByName(username);
                     if (selectedUser == null) {
                         System.out.println("User not found. Please try again.");
                         return;
@@ -91,10 +91,7 @@ public class CLI {
                     System.out.print("Choose chatID: ");
                     int chatID = scanner.nextInt();
 
-                    QueryChats.getSingleChat(chatID);
-
-
-
+                    Chat.viewChatMessages(chatID);
                 }
                 case 4 -> {
                     System.out.println("Exiting...");
