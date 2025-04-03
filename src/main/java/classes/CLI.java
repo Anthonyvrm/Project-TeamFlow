@@ -71,11 +71,6 @@ public class CLI {
                     System.out.print("Enter Message: ");
                     String message = scanner.nextLine();
 
-
-                    System.out.print("Is this message highlighted? (true/false): ");
-                    boolean isHighlighted = scanner.nextBoolean();
-                    scanner.nextLine();
-
                     QueryChats.getChatQuery();
                     System.out.print("Choose chatID: ");
                     int chatID = scanner.nextInt();
@@ -84,7 +79,7 @@ public class CLI {
                         System.out.println("Chat not found. Please try again.");
                         return;
                     } else {
-                        MessageDAO.insertMessage(selectedUser, message, isHighlighted, chatID);
+                        MessageDAO.insertMessage(selectedUser, message, false, chatID);
                         scanner.nextLine(); //
                     }
 
@@ -96,7 +91,9 @@ public class CLI {
                     System.out.print("Choose chatID: ");
                     int chatID = scanner.nextInt();
 
-                    QueryMessages.getChatMessageQuery(chatID);
+                    QueryChats.getSingleChat(chatID);
+
+
 
                 }
                 case 4 -> {

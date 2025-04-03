@@ -1,6 +1,6 @@
 package queries;
 
-import classes.User;
+import classes.*;
 import database.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class QueryMessages {
     public static void getMessageQuery() {
@@ -44,9 +45,9 @@ public class QueryMessages {
         }
     }
 
-    public static void getChatMessageQuery(int chatID) {
+    public static ArrayList<Message> getChatMessageQuery(int chatID) {
         String sql = "SELECT * FROM Message WHERE chatID = ?"; // Use parameterized query
-
+        ArrayList<Message> messages = new ArrayList<Message>();
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -59,25 +60,27 @@ public class QueryMessages {
 
                 while (rs.next()) {
                     hasMessages = true;
+
                     int userId = rs.getInt("userID");
                     String message = rs.getString("message");
                     String createdAtStr = rs.getString("created_at");
 
                     LocalDateTime createdAt = LocalDateTime.parse(createdAtStr, formatter);
-
-                    System.out.println("User ID: " + userId +
-                            ", Message: " + message +
-                            ", Sent at: " + createdAt);
+                    Message message = new Message(userId, )
+                    messages.add(message)
                 }
 
                 if (!hasMessages) {
                     System.out.println("No messages found.");
+                    return null;
                 }
             } catch (SQLException e) {
                 System.out.println("Error retrieving messages: " + e.getMessage());
+                return null;
             }
         } catch (SQLException e) {
             System.out.println("Database connection error: " + e.getMessage());
+            return null;
         }
     }
 
