@@ -2,6 +2,7 @@ package classes;
 import dao.MessageDAO;
 import dao.UserDAO;
 import queries.QueryChats;
+import queries.QueryMessages;
 import queries.QueryUsers;
 
 import java.util.Scanner;
@@ -84,12 +85,19 @@ public class CLI {
                         return;
                     } else {
                         MessageDAO.insertMessage(selectedUser, message, isHighlighted, chatID);
+                        scanner.nextLine(); //
                     }
 
 
                 }
                 case 3 -> {
                     // Toon alle chats
+                    QueryChats.getChatQuery();
+                    System.out.print("Choose chatID: ");
+                    int chatID = scanner.nextInt();
+
+                    QueryMessages.getChatMessageQuery(chatID);
+
                 }
                 case 4 -> {
                     System.out.println("Exiting...");
