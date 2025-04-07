@@ -73,13 +73,14 @@ public class CLI {
                     QueryChats.getChatQuery();
                     System.out.print("Choose chatID: ");
                     int chatID = scanner.nextInt();
+                    Chat selectedChat = QueryChats.getSingleChat(chatID);
 
                     if (QueryChats.getSingleChat(chatID) == null) {
                         System.out.println("Chat not found. Please try again.");
                         return;
                     } else {
-                        MessageDAO.insertMessage(selectedUser, message, false, chatID);
-                        scanner.nextLine(); //
+                        MessageDAO.insertMessage(selectedUser, message, false, selectedChat);
+                        scanner.nextLine();
                     }
 
 
