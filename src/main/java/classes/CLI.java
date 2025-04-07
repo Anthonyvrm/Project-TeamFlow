@@ -38,10 +38,18 @@ public class CLI {
             default -> System.out.println("Invalid choice. Try again.");
         }
     }
+    public void scrumManagementMenu() {
+        System.out.println("\n===== Scrum Master Menu =====");
+        System.out.println("1. Add Epic.");
+        System.out.println("2. Add User Story");
+        System.out.println("3. Add Task");
+        System.out.println("4. Exit");
+    }
 
     public void chatMenu() {}
 
     public void mainMenu() {
+
         System.out.println("\n===== Welcome to TeamFlow =====");
         System.out.println("1. User Management");
         System.out.println("2. Send message");
