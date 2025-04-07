@@ -45,6 +45,17 @@ public class CLI {
         System.out.println("3. Add User Story");
         System.out.println("4. Add Task");
         System.out.println("5. Exit");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (choice) {
+            case 1 -> {}
+            case 2 ->{}
+            case 3 -> {}
+            case 4 -> {}
+            case 5 -> {}
+        }
     }
 
     public void chatMenu() {}
