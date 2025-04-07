@@ -26,6 +26,29 @@ public class QuerySprint {
         }
     }
 
+//    public static int getSprintByID(int sprintID) {
+//        String sql = "SELECT * FROM Sprint WHERE sprintID = ?";
+//
+//        try (Connection conn = DatabaseConnection.connect();
+//             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+//
+//            pstmt.setInt(1, sprintID); // Stel de chatName in als parameter
+//
+//            ResultSet rs = pstmt.executeQuery() ;
+//            while (rs.next()) {
+//
+//                int sprintId = rs.getInt("sprintID");
+//                int sprintInt = rs.getInt("sprintInt");
+//
+//                System.out.println("Sprint ID: " + sprintId +
+//                        ", Sprint int: " + sprintInt);
+//            }
+//        } catch (SQLException e) {
+//            System.out.println("Query failed: " + e.getMessage());
+//        }
+//        return sprintID;
+//    }
+
     public static void main(String[] args) {
         getSprintQuery();
     }

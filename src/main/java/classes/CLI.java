@@ -86,9 +86,15 @@ public class CLI {
                 }
                 case 3 -> {
                     // Toon alle chats
-                    QueryChats.getChatQuery();
+                    QuerySprint.getSprintQuery();
+                    System.out.println("Choose sprintID: ");
+                    int sprintID = scanner.nextInt();
+                    scanner.nextLine();
+
+                    QueryChats.getChatsBySprint(sprintID);
                     System.out.print("Choose chatID: ");
                     int chatID = scanner.nextInt();
+                    scanner.nextLine();
 
                     Chat chat = QueryChats.getSingleChat(chatID);
                     chat.setChatMessages(QueryMessages.getMessagesForChat(chatID));

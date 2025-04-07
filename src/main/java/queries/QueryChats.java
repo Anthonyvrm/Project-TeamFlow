@@ -1,7 +1,7 @@
 package queries;
 
 import classes.Chat;
-import classes.User;
+import classes.Sprint;
 import database.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,6 +27,30 @@ public class QueryChats {
                         ", Sprint ID: " + sprintId);
             }
 
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+        }
+    }
+
+    public static void getChatsBySprint(int sprintId) {
+        String sql = "SELECT * FROM Chat WHERE sprintID = ?";
+
+        try (Connection conn = DatabaseConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, sprintId); // Stel de chatName in als parameter
+
+            ResultSet rs = pstmt.executeQuery() ;
+                while (rs.next()) {
+
+                    int chatId = rs.getInt("chatID");
+                    String chatName = rs.getString("chatName");
+                    sprintId = rs.getInt("sprintID");
+
+                    System.out.println("Chat ID: " + chatId +
+                            ", Chat Name: " + chatName +
+                            ", Sprint ID: " + sprintId);
+                }
         } catch (SQLException e) {
             System.out.println("Query failed: " + e.getMessage());
         }
