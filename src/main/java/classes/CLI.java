@@ -2,7 +2,6 @@ package classes;
 import dao.MessageDAO;
 import dao.UserDAO;
 import queries.QueryChats;
-import queries.QueryMessages;
 import queries.QueryUsers;
 
 import java.util.Scanner;
@@ -91,7 +90,12 @@ public class CLI {
                     System.out.print("Choose chatID: ");
                     int chatID = scanner.nextInt();
 
-                    Chat.viewChatMessages(chatID);
+                    Chat chat = QueryChats.getSingleChat(chatID);
+                    if (chat != null) {
+                       chat.viewChatMessages();
+                    } else {
+                        System.out.println("There is no chat with chatID: " + chatID);
+                    }
                 }
                 case 4 -> {
                     System.out.println("Exiting...");

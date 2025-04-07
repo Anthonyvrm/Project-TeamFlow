@@ -1,5 +1,7 @@
 package classes;
 
+import queries.QueryChats;
+
 import java.util.ArrayList;
 
 public class Chat {
@@ -35,12 +37,16 @@ public class Chat {
 
 
     public void viewChatMessages() {
-        for (Message message : chatMessages) {
-            if (message.getIsHighlighted()) {
-                System.out.print("*");
+        if (chatMessages != null) {
+            for (Message message : chatMessages) {
+                if (message.getIsHighlighted()) {
+                    System.out.print("*");
+                }
+                System.out.print(message.getUser().getUsername() + ": ");
+                System.out.println(message.getMessage());
             }
-            System.out.print(message.getUser().getUsername() + ": ");
-            System.out.println(message.getMessage());
+        } else {
+            System.out.println("There are no messages in this chat...");
         }
     }
 }

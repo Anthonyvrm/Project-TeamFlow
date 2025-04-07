@@ -4,23 +4,24 @@ import classes.User;
 
 import database.DatabaseConnection;
 import queries.QueryChats;
+import queries.QueryUsers;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class MessageDAO {
-    public static void insertMessage(User user, String message, boolean isHighlighted, int chatID) {
-        String sql = "INSERT INTO Message(userID ,message, isHighlighted, chatID) VALUES(?, ?, ?, ?)";
+    public static void insertMessage(User user, String message, boolean isHighlighted, Chat chat) {
+        String sql = "INSERT INTO Message(user ,message, isHighlighted, chat) VALUES(?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, user.getUserID());
+            pstmt.setInt(1, QueryUsers.getUserID(user));
             pstmt.setString(2, message);
             pstmt.setBoolean(3, isHighlighted);
-            pstmt.setInt(4, chatID);
+            pstmt.setInt(4, QueryChats.getChatID(chat));
 
-            if(chatID >= 0) {
+            if(QueryChats.getChatID(chat) >= 0) {
                 pstmt.executeUpdate();
                 System.out.println("Message inserted successfully.");
             } else {
