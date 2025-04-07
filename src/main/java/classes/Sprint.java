@@ -1,50 +1,51 @@
 package classes;
-import java.time.format.DateTimeFormatter;
+
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class Sprint {
     private int sprintInt;
-    private int sprintID;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+    private Chat sprintChat;
 
-    public Sprint(int sprintInt, int sprintID, LocalDateTime startDate, LocalDateTime endDate) {
+
+    public Sprint(int sprintInt, LocalDateTime startDate, Chat sprintChat) {
         this.sprintInt = sprintInt;
-        this.sprintID = sprintID;
-        this.startDate = LocalDateTime.now();
+        this.startDate = startDate;
         this.endDate = startDate.plusDays(14);
-    }
-
-    public LocalDateTime getEndDate() {
-        return this.endDate;
-    }
-
-    public LocalDateTime getStartDate() {
-        return this.startDate;
+        this.sprintChat = sprintChat;
     }
 
     public int getSprintInt() {
-        return this.sprintInt;
-    }
-
-    public int getSprintID() {
-        return this.sprintID;
+        return sprintInt;
     }
 
     public void setSprintInt(int sprintInt) {
         this.sprintInt = sprintInt;
     }
 
-    public void setSprintID(int sprintID) {
-        this.sprintID = sprintID;
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+        this.endDate = startDate.plusDays(14);
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
     }
 
     public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
-        this.startDate = startDate;
+    public Chat getSprintChat() {
+        return sprintChat;
+    }
+
+    public void setSprintChat(Chat sprintChat) {
+        this.sprintChat = sprintChat;
     }
 }

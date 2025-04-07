@@ -1,15 +1,18 @@
 package classes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
 
     private String username;
     private boolean isScrumMaster;
-    private int userID;
+    private List<Message> messages;
 
-    public User(String username, boolean isScrumMaster, int userID) {
+    public User(String username, boolean isScrumMaster) {
         this.username = username;
         this.isScrumMaster = isScrumMaster;
-        this.userID = userID;
+        this.messages = new ArrayList<>();
     }
 
     public String getUsername() {
@@ -28,7 +31,10 @@ public class User {
         this.isScrumMaster = isScrumMaster;
     }
 
-    public int getUserID() { return this.userID;}
-    public void setUserID(int userID) { this.userID = userID;}
+
+    public void addMessage(Message message) {
+        messages.add(message);
+        message.setUser(this);
+    }
 }
 
