@@ -1,8 +1,9 @@
 package classes;
-import dao.MessageDAO;
-import dao.UserDAO;
+import dao.*;
 import queries.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 public class CLI {
     Scanner scanner = new Scanner(System.in);
@@ -35,6 +36,64 @@ public class CLI {
                 mainMenu();
             }
             default -> System.out.println("Invalid choice. Try again.");
+        }
+    }
+
+    public void scrumManagementMenu() {
+        System.out.println("\n===== Scrum Master Menu =====");
+        System.out.println("1. Add Sprint");
+        System.out.println("2. Add Epic.");
+        System.out.println("3. Add User Story");
+        System.out.println("4. Add Task");
+        System.out.println("5. Exit");
+        System.out.print ("Choose an option: ");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (choice) {
+            case 1 -> {
+                try {
+                    System.out.print("Enter sprint number (int): ");
+                    int sprintNummer = scanner.nextInt();
+                    scanner.nextLine();
+
+                    System.out.print("Use default 2-week sprint duration? (yes/no): ");
+                    String useDefault = scanner.nextLine();
+
+                    LocalDateTime startDate;
+                    LocalDateTime endDate;
+
+                    if (useDefault.equalsIgnoreCase("yes")) {
+                        startDate = LocalDateTime.now();
+                        endDate = startDate.plusWeeks(2);
+                        System.out.println("Sprint will run from " + startDate + " to " + endDate);
+                    } else {
+                        System.out.print("Enter start date (YYYY-MM-DDTHH:MM): ");
+                        String startInput = scanner.nextLine();
+                        startDate = LocalDateTime.parse(startInput);
+
+                        System.out.print("Enter end date (YYYY-MM-DDTHH:MM): ");
+                        String endInput = scanner.nextLine();
+                        endDate = LocalDateTime.parse(endInput);
+                    }
+
+                    SprintDAO.insertSprint(sprintNummer, startDate, endDate);
+
+                } catch (DateTimeParseException e) {
+                    System.out.println("⚠ Invalid date format. Please use: YYYY-MM-DDTHH:MM");
+                } catch (Exception e) {
+                    System.out.println("⚠ Error adding sprint: " + e.getMessage());
+                }
+            }
+            case 2 -> {
+            }
+            case 3 -> {
+            }
+            case 4 -> {
+            }
+            case 5 -> {
+            }
         }
     }
 
@@ -105,6 +164,9 @@ public class CLI {
                     }
                 }
                 case 4 -> {
+                    scrumManagementMenu();
+                }
+                case 5 -> {
                     System.out.println("Exiting...");
                     scanner.close();
                     return;
