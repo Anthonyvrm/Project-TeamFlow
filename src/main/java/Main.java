@@ -1,6 +1,5 @@
 import dao.*;
 import database.DatabaseSetup;
-import queries.QueryUsers;
 import classes.*;
 import java.util.Scanner;
 

@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 public class MessageDAO {
     public static void insertMessage(User user, String message, boolean isHighlighted, Chat chat) {
-        String sql = "INSERT INTO Message(user ,message, isHighlighted, chat) VALUES(?, ?, ?, ?)";
+        String sql = "INSERT INTO Message(userID ,message, isHighlighted, chatID) VALUES(?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 

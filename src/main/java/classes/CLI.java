@@ -1,8 +1,7 @@
 package classes;
 import dao.MessageDAO;
 import dao.UserDAO;
-import queries.QueryChats;
-import queries.QueryUsers;
+import queries.*;
 
 import java.util.Scanner;
 public class CLI {
@@ -92,6 +91,7 @@ public class CLI {
                     int chatID = scanner.nextInt();
 
                     Chat chat = QueryChats.getSingleChat(chatID);
+                    chat.setChatMessages(QueryMessages.getMessagesForChat(chatID));
                     if (chat != null) {
                        chat.viewChatMessages();
                     } else {

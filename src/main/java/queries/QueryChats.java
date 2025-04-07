@@ -59,14 +59,14 @@ public class QueryChats {
     }
 
     public static int getChatID(Chat chat) {
-        String sql = "SELECT * FROM User WHERE chatname = ?";  // Gebruik parameterized query
+        String sql = "SELECT chatID FROM Chat WHERE chatName = ?";  // Gebruik parameterized query
 
         int retrievedChatID = -1 ;
 
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, chat.getChatName()); // Stel de username in als parameter
+            pstmt.setString(1, chat.getChatName());
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) { // Controleer of er een gebruiker is gevonden

@@ -45,7 +45,7 @@ public class QueryMessages {
         }
     }
 
-    public static ArrayList<Message> getChatMessageQuery(int chatID) {
+    public static ArrayList<Message> getMessagesForChat(int chatID) {
         String sql = "SELECT * FROM Message WHERE chatID = ?"; // Use parameterized query
         ArrayList<Message> messages = new ArrayList<Message>();
         try (Connection conn = DatabaseConnection.connect();
