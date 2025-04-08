@@ -9,7 +9,7 @@ public class Sprint {
     private Chat sprintChat;
 
 
-    public Sprint(int sprintInt, LocalDateTime startDate, Chat sprintChat) {
+    public Sprint(int sprintInt, LocalDateTime startDate, LocalDateTime endDate, Chat sprintChat) {
         this.sprintInt = sprintInt;
         this.startDate = startDate;
         this.endDate = startDate.plusDays(14);
