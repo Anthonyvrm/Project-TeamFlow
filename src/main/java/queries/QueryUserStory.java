@@ -1,5 +1,6 @@
 package queries;
 
+import classes.*;
 import database.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,6 +33,25 @@ public class QueryUserStory {
         } catch (SQLException e) {
             System.out.println("Query mislukt: " + e.getMessage());
         }
+    }
+
+    public static int getUserStoryID(UserStory userstory) {
+
+        String sql = "SELECT usID FROM Userstory WHERE usName = ?";
+        int usID = -1;
+        try (Connection conn = DatabaseConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, userstory.getUsName());
+
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                usID = rs.getInt("usID");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Query mislukt: " + e.getMessage());
+        }
+        return usID;
     }
 
     public static void main(String[] args) {
