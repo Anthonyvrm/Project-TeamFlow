@@ -11,7 +11,7 @@ public class Main {
         DatabaseSetup.createTables();
 
         UserDAO.insertTestUser();
-        ChatDAO.insertTestChat();
+        //ChatDAO.insertTestChat();
         EpicDAO.insertTestEpic();
         //SprintDAO.insertTestSprint();
         TaskDAO.insertTestTask();
