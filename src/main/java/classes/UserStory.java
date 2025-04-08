@@ -10,10 +10,11 @@ public class UserStory implements Linker {
     private Epic epic;
 
 
-    public UserStory(String usName, String usDescription, Chat userStoryChat) {
+    public UserStory(String usName, String usDescription, Chat userStoryChat, Epic epic) {
         this.usName = usName;
         this.usDescription = usDescription;
         this.userStoryChat = userStoryChat;
+        this.epic = epic;
         this.tasks = new ArrayList<>();
     }
 

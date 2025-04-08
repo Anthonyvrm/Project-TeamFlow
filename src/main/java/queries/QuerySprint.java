@@ -49,9 +49,9 @@ public class QuerySprint {
         return -1;
     }
 
-    public static Sprint getSprintByID(int sprintID) {
+    public static Sprint getSingleSprint(int sprintID) {
         String sql = "SELECT * FROM Sprint WHERE sprintID = ?";
-
+        Sprint sprint = null;
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -67,10 +67,9 @@ public class QuerySprint {
                 LocalDateTime startDate = start.toLocalDateTime();
                 LocalDateTime endDate = end.toLocalDateTime();
 
-                // Chat ophalen
                 Chat chat = QueryChats.getSingleChat(chatID);
                 if (chat != null) {
-                    return new Sprint(sprintInt, startDate, endDate, chat);
+                   sprint = new Sprint(sprintInt, startDate, endDate, chat);
                 } else {
                     System.out.println("⚠ Chat not found for sprint.");
                 }
@@ -81,8 +80,7 @@ public class QuerySprint {
         } catch (SQLException e) {
             System.out.println("⚠ Sprint query failed: " + e.getMessage());
         }
-
-        return null;
+        return sprint;
     }
 
     public static void main(String[] args) {
