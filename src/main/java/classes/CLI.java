@@ -114,7 +114,7 @@ public class CLI {
         System.out.println("\n===== Welcome to TeamFlow =====");
         System.out.println("1. User Management");
         System.out.println("2. Send message");
-        System.out.println("3. View chats");
+        System.out.println("3. View Sprints");
         System.out.println("4. Scrum Management");
         System.out.print("Choose an option: ");
 
