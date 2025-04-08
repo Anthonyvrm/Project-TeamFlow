@@ -1,30 +1,35 @@
 package dao;
 
+import classes.*;
 import database.DatabaseConnection;
+import queries.QueryUserStory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class TaskDAO {
-    public static void insertTask(String taskName, String taskDescription) {
-        String sql = "INSERT INTO Task(taskName,taskDescription) VALUES(?,?)";
-
+    public static int insertTaskAndReturnID(Task task) {
+        String sql = "INSERT INTO Task(taskDescription,usID) VALUES(?,?)";
+        int taskID = -1;
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, taskName);
-            pstmt.setString(2, taskDescription);
-
+            pstmt.setString(1, task.getTaskDescription());
+            pstmt.setInt(2, QueryUserStory.getUserStoryID(task.getUserStory()));
             pstmt.executeUpdate();
+
+            try (ResultSet keys = pstmt.getGeneratedKeys()) {
+                if (keys.next()) {
+                    taskID = keys.getInt(1);
+                    System.out.println("Task created: " + task.getTaskDescription() + " (ID: " + taskID + ")");
+                }
+            }
+
             System.out.println("Task inserted successfully.");
         } catch (SQLException e) {
             System.out.println("Insert failed: " + e.getMessage());
         }
-    }
-
-    public static void insertTestTask() {
-
-        insertTask("Task1" , "Task1 Description");
-
+        return taskID;
     }
 }

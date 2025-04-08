@@ -62,7 +62,6 @@ public class DatabaseSetup {
         String createTaskTable = """
         CREATE TABLE IF NOT EXISTS Task (
             taskID INTEGER PRIMARY KEY AUTOINCREMENT,
-            taskName TEXT NOT NULL,
             taskDescription TEXT NOT NULL,
             usID INTEGER,
             chatID INTEGER,
