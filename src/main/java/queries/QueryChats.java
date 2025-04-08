@@ -1,7 +1,7 @@
 package queries;
 
 import classes.Chat;
-import classes.Sprint;
+import java.util.ArrayList;
 import database.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,70 +9,59 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class QueryChats {
-    public static void getChatQuery() {
+    public static ArrayList<Chat> getChatQuery() {
         String sql = "SELECT * FROM Chat";
+        ArrayList<Chat> chats = new ArrayList<>();
 
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
-
             while (rs.next()) {
-
-                int chatId = rs.getInt("chatID");
                 String chatName = rs.getString("chatName");
-                int sprintId = rs.getInt("sprintID");
-
-                System.out.println("Chat ID: " + chatId +
-                        ", Chat Name: " + chatName +
-                        ", Sprint ID: " + sprintId);
+                Chat chat = new Chat(chatName);
+                chats.add(chat);
             }
 
         } catch (SQLException e) {
             System.out.println("Query failed: " + e.getMessage());
         }
+        return chats;
     }
 
-    public static void getChatsBySprint(int sprintId) {
+    public static ArrayList<Chat> getChatsBySprint(int sprintId) {
         String sql = "SELECT * FROM Chat WHERE sprintID = ?";
+        ArrayList<Chat> chats = new ArrayList<>();
 
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setInt(1, sprintId); // Stel de chatName in als parameter
-
+            pstmt.setInt(1, sprintId);
             ResultSet rs = pstmt.executeQuery() ;
                 while (rs.next()) {
-
-                    int chatId = rs.getInt("chatID");
                     String chatName = rs.getString("chatName");
-                    sprintId = rs.getInt("sprintID");
-
-                    System.out.println("Chat ID: " + chatId +
-                            ", Chat Name: " + chatName +
-                            ", Sprint ID: " + sprintId);
+                    Chat chat = new Chat(chatName);
+                    chats.add(chat);
                 }
         } catch (SQLException e) {
             System.out.println("Query failed: " + e.getMessage());
         }
+        return chats;
     }
 
-    public static Chat getSingleChat(int chat) {
-        String sql = "SELECT * FROM Chat WHERE chatID = ?";  // Gebruik parameterized query
+    public static Chat getSingleChat(int chatID) {
+        String sql = "SELECT * FROM Chat WHERE chatID = ?";
 
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, chat); // Stel de chatName in als parameter
+            pstmt.setInt(1, chatID);
 
             try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) { // Controleer of er een gebruiker is gevonden
+                if (rs.next()) {
                     String retrievedChatName = rs.getString("chatName");
-
-                    // Maak en retourneer een User-object
                     return new Chat(retrievedChatName);
                 } else {
                     System.out.println("Chat not found.");
-                    return null;  // Return null als geen gebruiker gevonden is
+                    return null;
                 }
             }
 
