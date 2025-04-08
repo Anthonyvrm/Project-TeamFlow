@@ -28,6 +28,7 @@ public class ChatDAO {
         insertChat("Chat5780");
 
     }
+
     public static int insertChatAndReturnID(String chatName) {
         String sql = "INSERT INTO Chat(chatName) VALUES(?)";
         int chatID = -1;
