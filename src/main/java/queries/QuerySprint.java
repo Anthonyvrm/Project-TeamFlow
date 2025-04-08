@@ -27,6 +27,28 @@ public class QuerySprint {
         }
     }
 
+    public static int getSprintID(Sprint sprint) {
+        String sql = "SELECT sprintID FROM Sprint WHERE sprintInt = ?";
+
+        try (Connection conn = DatabaseConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, sprint.getSprintInt());
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("sprintID");
+            } else {
+                System.out.println("⚠ Sprint not found.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("⚠ Sprint query failed: " + e.getMessage());
+        }
+
+        return -1;
+    }
+
     public static Sprint getSprintByID(int sprintID) {
         String sql = "SELECT * FROM Sprint WHERE sprintID = ?";
 
