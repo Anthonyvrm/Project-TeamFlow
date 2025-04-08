@@ -1,5 +1,6 @@
 package queries;
 
+import classes.*;
 import database.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,6 +34,26 @@ public class QueryEpics {
             System.out.println("Query failed: " + e.getMessage());
         }
     }
+
+    public static int getEpicID(Epic epic) {
+        String sql = "SELECT epicID FROM Epic";
+        int epicID = -1;
+        try (Connection conn = DatabaseConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+
+            pstmt.setString(1, epic.getEpicName());
+
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                epicID = rs.getInt("epicID");
+            }
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+        }
+        return epicID;
+    }
+
+
 
     public static void main(String[] args) {
         getEpicQuery();

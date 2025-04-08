@@ -33,7 +33,6 @@ public class QueryTasks {
             System.out.println("Query failed: " + e.getMessage());
         }
     }
-
     public static void main(String[] args) {
         getTaskQuery();
     }

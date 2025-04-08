@@ -65,7 +65,6 @@ public class QueryUsers {
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) { // Controleer of er een gebruiker is gevonden
-                    int retrievedID = rs.getInt("userID");
                     String retrievedUsername = rs.getString("username");
                     boolean isScrumMaster = rs.getBoolean("isScrumMaster");
 
