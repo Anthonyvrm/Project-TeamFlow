@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class QueryUserStory {
-    public static ArrayList<UserStory> getUserStoriesQuery() {
+    public static ArrayList<UserStory> getAllUserStories() {
 
         String sql = "SELECT * FROM Userstory";
         ArrayList<UserStory> userStories = new ArrayList<>();
@@ -71,9 +71,5 @@ public class QueryUserStory {
             System.out.println("Query mislukt: " + e.getMessage());
         }
         return usID;
-    }
-
-    public static void main(String[] args) {
-        getUserStoriesQuery();
     }
 }

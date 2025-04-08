@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class QueryEpics {
-    public static ArrayList<Epic> getEpicQuery() {
+    public static ArrayList<Epic> getAllEpics() {
         String sql = "SELECT * FROM Epic";
         ArrayList<Epic> epics = new ArrayList<>();
         try (Connection conn = DatabaseConnection.connect();
@@ -67,13 +67,4 @@ public class QueryEpics {
         }
         return epicID;
     }
-
-
-
-
-    public static void main(String[] args) {
-        getEpicQuery();
-    }
-
-
 }

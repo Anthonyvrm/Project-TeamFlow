@@ -11,38 +11,26 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class QueryMessages {
-    public static void getMessageQuery() {
+    public static ArrayList<Message> getAllMessages() {
         String sql = "SELECT * FROM Message";
+        ArrayList<Message> messages = new ArrayList<>();
 
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
             while (rs.next()) {
-
-                int messageId = rs.getInt("messageID");
-                int userId = rs.getInt("userID");
+                User user = QueryUsers.getSingleUser(rs.getInt("userID"));
                 String message = rs.getString("message");
                 boolean isHighlighted = rs.getBoolean("isHiglighted");
-                int chatId = rs.getInt("chatID");
+                Chat chat = QueryChats.getSingleChat(rs.getInt("chatID"));
 
-                String createdAtStr = rs.getString("created_at");
-
-                LocalDateTime createdAt = LocalDateTime.parse(createdAtStr, formatter);
-
-                System.out.println("Message ID: " + messageId +
-                        ", User ID: " + userId +
-                        ", message: " + message +
-                        ", isHighlighted: " + isHighlighted +
-                        ", chatID: " + chatId +
-                        ", created_at: " + createdAt);
+                messages.add(new Message(user, message, isHighlighted, chat));
             }
-
         } catch (SQLException e) {
             System.out.println("Query failed: " + e.getMessage());
         }
+        return messages;
     }
 
     public static ArrayList<Message> getMessagesForChat(int chatID) {
@@ -61,12 +49,11 @@ public class QueryMessages {
                 while (rs.next()) {
                     hasMessages = true;
 
-                    int userId = rs.getInt("userID");
+                    User user = QueryUsers.getSingleUser(rs.getInt("userID"));
                     String message = rs.getString("message");
-                    String createdAtStr = rs.getString("created_at");
+                    boolean isHighlighted = rs.getBoolean("isHighlighted");
 
-                    LocalDateTime createdAt = LocalDateTime.parse(createdAtStr, formatter);
-                    messages.add(new Message(QueryUsers.getSingleUserByID(userId), message, false, QueryChats.getSingleChat(chatID)));
+                    messages.add(new Message(user, message, isHighlighted, QueryChats.getSingleChat(chatID)));
                 }
 
                 if (!hasMessages) {
@@ -82,9 +69,5 @@ public class QueryMessages {
             return messages;
         }
         return messages;
-    }
-
-    public static void main(String[] args) {
-        getMessageQuery();
     }
 }

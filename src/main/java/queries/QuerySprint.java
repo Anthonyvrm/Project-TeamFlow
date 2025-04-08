@@ -8,7 +8,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 
 public class QuerySprint {
-    public static void getSprintQuery() {
+    public static void getAllSprints() {
         String sql = "SELECT * FROM Sprint";
 
         try (Connection conn = DatabaseConnection.connect();
@@ -81,9 +81,5 @@ public class QuerySprint {
             System.out.println("⚠ Sprint query failed: " + e.getMessage());
         }
         return sprint;
-    }
-
-    public static void main(String[] args) {
-        getSprintQuery();
     }
 }

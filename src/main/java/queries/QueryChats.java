@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class QueryChats {
-    public static ArrayList<Chat> getChatQuery() {
+    public static ArrayList<Chat> getAllChats() {
         String sql = "SELECT * FROM Chat";
         ArrayList<Chat> chats = new ArrayList<>();
 
@@ -35,12 +35,12 @@ public class QueryChats {
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, sprintId);
-            ResultSet rs = pstmt.executeQuery() ;
-                while (rs.next()) {
-                    String chatName = rs.getString("chatName");
-                    Chat chat = new Chat(chatName);
-                    chats.add(chat);
-                }
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                String chatName = rs.getString("chatName");
+                Chat chat = new Chat(chatName);
+                chats.add(chat);
+            }
         } catch (SQLException e) {
             System.out.println("Query failed: " + e.getMessage());
         }
@@ -74,7 +74,7 @@ public class QueryChats {
     public static int getChatID(Chat chat) {
         String sql = "SELECT chatID FROM Chat WHERE chatName = ?";  // Gebruik parameterized query
 
-        int retrievedChatID = -1 ;
+        int retrievedChatID = -1;
 
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -97,8 +97,5 @@ public class QueryChats {
             return retrievedChatID;
         }
     }
-
-    public static void main(String[] args) {
-        getChatQuery();
-    }
 }
+
