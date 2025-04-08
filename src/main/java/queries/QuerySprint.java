@@ -18,38 +18,14 @@ public class QuerySprint {
             while (rs.next()) {
                 int sprintID = rs.getInt("sprintID");
                 int sprintInt = rs.getInt("sprintInt");
-                int chatID = rs.getInt("chatID");
 
-                System.out.println("sprintID: " + sprintID + ", Sprint: " + sprintInt + ", Chat ID: " + chatID);
+                System.out.println("sprintID: " + sprintID + ", Sprint: " + sprintInt);
             }
 
         } catch (SQLException e) {
             System.out.println("Query mislukt: " + e.getMessage());
         }
     }
-
-//    public static int getSprintByID(int sprintID) {
-//        String sql = "SELECT * FROM Sprint WHERE sprintID = ?";
-//
-//        try (Connection conn = DatabaseConnection.connect();
-//             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-//
-//            pstmt.setInt(1, sprintID); // Stel de chatName in als parameter
-//
-//            ResultSet rs = pstmt.executeQuery() ;
-//            while (rs.next()) {
-//
-//                int sprintId = rs.getInt("sprintID");
-//                int sprintInt = rs.getInt("sprintInt");
-//
-//                System.out.println("Sprint ID: " + sprintId +
-//                        ", Sprint int: " + sprintInt);
-//            }
-//        } catch (SQLException e) {
-//            System.out.println("Query failed: " + e.getMessage());
-//        }
-//        return sprintID;
-//    }
 
     public static Sprint getSprintByID(int sprintID) {
         String sql = "SELECT * FROM Sprint WHERE sprintID = ?";

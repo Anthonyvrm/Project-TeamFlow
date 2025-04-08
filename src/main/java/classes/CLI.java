@@ -54,7 +54,6 @@ public class CLI {
         switch (choice) {
             case 1 -> {
                 try {
-
                     System.out.print("Enter sprint number (int): ");
                     int sprintNummer = scanner.nextInt();
                     scanner.nextLine();
@@ -79,17 +78,10 @@ public class CLI {
                         endDate = LocalDateTime.parse(endInput);
                     }
 
+                    int sprintID = SprintDAO.insertSprintAndReturnID(sprintNummer, startDate, endDate);
                     String chatName = "Sprintchat_" + sprintNummer;
-                    int chatID = ChatDAO.insertChatAndReturnID(chatName);
-
-                    if (chatID == -1) {
-                        System.out.println("Chat creation failed/ Sprint not added");
-                        return;
-                    }
-
-                    SprintDAO.insertSprint(sprintNummer, startDate, endDate, chatID);
+                    ChatDAO.insertChat(chatName, sprintID);
                     System.out.println("Sprint and chat succesfully added.");
-
 
                 } catch (DateTimeParseException e) {
                     System.out.println("Invalid date format. Please use: YYYY-MM-DDTHH:MM");
@@ -168,9 +160,10 @@ public class CLI {
                     scanner.nextLine();
 
                     Chat chat = QueryChats.getSingleChat(chatID);
-                    chat.setChatMessages(QueryMessages.getMessagesForChat(chatID));
+
                     if (chat != null) {
-                       chat.viewChatMessages();
+                        chat.setChatMessages(QueryMessages.getMessagesForChat(chatID));
+                        chat.viewChatMessages();
                     } else {
                         System.out.println("There is no chat with chatID: " + chatID);
                     }
