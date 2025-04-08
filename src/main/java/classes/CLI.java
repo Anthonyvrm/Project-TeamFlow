@@ -54,6 +54,7 @@ public class CLI {
         switch (choice) {
             case 1 -> {
                 try {
+
                     System.out.print("Enter sprint number (int): ");
                     int sprintNummer = scanner.nextInt();
                     scanner.nextLine();
@@ -78,12 +79,22 @@ public class CLI {
                         endDate = LocalDateTime.parse(endInput);
                     }
 
-                    SprintDAO.insertSprint(sprintNummer, startDate, endDate);
+                    String chatName = "Sprintchat_" + sprintNummer;
+                    int chatID = ChatDAO.insertChatAndReturnID(chatName);
+
+                    if (chatID == -1) {
+                        System.out.println("Chat creation failed/ Sprint not added");
+                        return;
+                    }
+
+                    SprintDAO.insertSprint(sprintNummer, startDate, endDate, chatID);
+                    System.out.println("Sprint and chat succesfully added.");
+
 
                 } catch (DateTimeParseException e) {
-                    System.out.println("⚠ Invalid date format. Please use: YYYY-MM-DDTHH:MM");
+                    System.out.println("Invalid date format. Please use: YYYY-MM-DDTHH:MM");
                 } catch (Exception e) {
-                    System.out.println("⚠ Error adding sprint: " + e.getMessage());
+                    System.out.println("Error adding sprint: " + e.getMessage());
                 }
             }
             case 2 -> {
@@ -104,7 +115,7 @@ public class CLI {
         System.out.println("1. User Management");
         System.out.println("2. Send message");
         System.out.println("3. View chats");
-        System.out.println("4. Exit");
+        System.out.println("4. Scrum Management");
         System.out.print("Choose an option: ");
 
         int choice = scanner.nextInt();
@@ -146,6 +157,7 @@ public class CLI {
                 case 3 -> {
                     // Toon alle chats
                     QuerySprint.getSprintQuery();
+
                     System.out.println("Choose sprintID: ");
                     int sprintID = scanner.nextInt();
                     scanner.nextLine();

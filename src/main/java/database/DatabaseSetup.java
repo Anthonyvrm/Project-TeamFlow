@@ -19,7 +19,9 @@ public class DatabaseSetup {
         sprintID INTEGER PRIMARY KEY AUTOINCREMENT,
         sprintInt INTEGER NOT NULL,
         startDate TIMESTAMP NOT NULL,
-        endDate TIMESTAMP NOT NULL
+        endDate TIMESTAMP NOT NULL,
+        chatID INTEGER,
+        FOREIGN KEY (chatID) REFERENCES CHAT(chatID)
     );
     """;
 

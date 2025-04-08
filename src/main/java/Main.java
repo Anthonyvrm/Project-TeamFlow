@@ -13,11 +13,14 @@ public class Main {
         UserDAO.insertTestUser();
         ChatDAO.insertTestChat();
         EpicDAO.insertTestEpic();
-        SprintDAO.insertTestSprint();
+        //SprintDAO.insertTestSprint();
         TaskDAO.insertTestTask();
         UserstoryDAO.insertTestUserstory();
 
         CLI cli = new CLI();
         CLI.main();
+
+
+
     }
 }
