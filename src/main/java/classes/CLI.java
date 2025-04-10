@@ -150,18 +150,18 @@ public class CLI {
                     String taskDescription = scanner.nextLine();
 
                     QueryUserStory.getAllUserStories();
-                    System.out.println("Enter the User Story ID: ");
+                    System.out.println("Enter User Story ID: ");
                     int userStoryID = scanner.nextInt();
                     scanner.nextLine();
 
-                    Chat taskChat = new Chat(taskName);
-                    int taskID = TaskDAO.insertTaskAndReturnID(new Task( QueryUserStory.getSingleUserStory(userStoryID), taskDescription, taskChat));
 
-                    String chatName = "taskchat_" + taskID;
-                    ChatDAO.insertChat(taskChat);
-                    System.out.println("Sprint and chat succesfully added.");
+                    UserStory userstory = QueryUserStory.getSingleUserStory(userStoryID);
+                    Chat taskChat = new Chat("taskchat_" + taskName);
+                    Task task = new Task(userstory, taskDescription, taskChat);
+                    TaskDAO.insertTask(task);
+
                 } catch (Exception e) {
-                    System.out.println("Error adding sprint: " + e.getMessage());
+                    System.out.println("Error adding task: " + e.getMessage());
                 }
             }
             case 5 -> {
