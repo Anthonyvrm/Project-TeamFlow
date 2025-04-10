@@ -30,7 +30,7 @@ public class CLI {
                 UserDAO.insertUser(username, isScrumMaster);
             }
             case 2 -> {
-                QueryUsers.getUsers();
+                QueryUsers.getAllUsers();
             }
             case 3 -> {
                 mainMenu();
@@ -90,6 +90,29 @@ public class CLI {
                 }
             }
             case 2 -> {
+                try {
+                    System.out.println("Enter epic name: ");
+                    String epicName = scanner.nextLine();
+
+                    System.out.println("Enter the epic description: ");
+                    String epicDescription = scanner.nextLine();
+
+                    QuerySprint.getAllSprints();
+                    System.out.println("Enter the Sprint ID: ");
+                    int sprintID = scanner.nextInt();
+                    scanner.nextLine();
+
+                    Sprint sprint = QuerySprint.getSingleSprint(sprintID);
+
+                    int epicID = EpicDAO.insertEpic(new Epic(epicName, epicDescription, sprint, null));
+
+                    String chatName = "epicchat" + epicID;
+                    ChatDAO.insertChat(chatName);
+
+
+                } catch (Exception e) {
+                    System.out.println("Error adding sprint: " + e.getMessage());
+                }
             }
             case 3 -> {
             }
@@ -139,7 +162,7 @@ public class CLI {
                     scrumMasterMenu();
                 }
                 case 2 -> {
-                    QueryUsers.getUsers();
+                    QueryUsers.getAllUsers();
                     System.out.print("Choose username: ");
                     String username = scanner.nextLine();
 
