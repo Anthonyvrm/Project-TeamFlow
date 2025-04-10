@@ -118,6 +118,28 @@ public class CLI {
                 }
             }
             case 3 -> {
+                try {
+                    System.out.println("Enter userstory name: ");
+                    String usName = scanner.nextLine();
+
+                    System.out.println("Enter userstory description: ");
+                    String usDescription = scanner.nextLine();
+
+                    QueryEpics.getAllEpics();
+                    System.out.print("Enter Epic ID");
+                    int epicID = scanner.nextInt();
+                    scanner.nextLine();
+
+                    Epic epic = QueryEpics.getSingleEpic(epicID);
+
+
+                    Chat userStoryChat = new Chat("userstorychat_" + usName);
+                    UserStory userstory = new UserStory(usName, usDescription, userStoryChat, epic);
+                    UserstoryDAO.insertUserstory(new UserStory(usName, usDescription, null, epic));
+
+                } catch (Exception e) {
+                    System.out.println("Error adding Userstory: " + e.getMessage());
+                }
             }
             case 4 -> {
                 try {
