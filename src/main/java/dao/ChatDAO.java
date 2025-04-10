@@ -1,17 +1,18 @@
 package dao;
 
+import classes.Chat;
 import database.DatabaseConnection;
 
 import java.sql.*;
 
 public class ChatDAO {
-    public static void insertChat(String chatName, int sprintID) {
-        String sql = "INSERT INTO Chat(chatName, sprintID) VALUES(?, ?)";
+    public static void insertChat(Chat chat) {
+        String sql = "INSERT INTO Chat VALUES(?)";
 
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, chatName);
-            pstmt.setInt(2, sprintID);
+            pstmt.setString(1, chat.getChatName());
+
             pstmt.executeUpdate();
 
             System.out.println("Chat inserted successfully.");

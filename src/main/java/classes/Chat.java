@@ -42,8 +42,7 @@ public class Chat {
                 if (message.getIsHighlighted()) {
                     System.out.print("*");
                 }
-                System.out.print(message.getUser().getUsername() + ": ");
-                System.out.println(message.getMessage());
+                System.out.printf("%s: %s%n", message.getUser().getUsername(), message.getMessage());
             }
         } else {
             System.out.println("There are no messages in this chat...");
