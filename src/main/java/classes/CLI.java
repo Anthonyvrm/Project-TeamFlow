@@ -57,8 +57,8 @@ public class CLI {
             case 1 -> {
                 try {
                     System.out.print("Enter sprint number (int): ");
-                    int sprintInt = scanner.nextInt();
-                    scanner.nextLine();
+                    int sprintNummer = scanner.nextInt();
+                    scanner.nextLine(); // consume newline
 
                     System.out.print("Use default 2-week sprint duration? (yes/no): ");
                     String useDefault = scanner.nextLine();
@@ -80,17 +80,21 @@ public class CLI {
                         endDate = LocalDateTime.parse(endInput);
                     }
 
-                    int sprintID = SprintDAO.insertSprintAndReturnID(new Sprint (sprintInt, startDate, endDate));
-                    String chatName = "Sprintchat_" + sprintInt;
-                    ChatDAO.insertChat(chatName, sprintID);
-                    System.out.println("Sprint and chat succesfully added.");
+                    String chatName = "Sprintchat_" + sprintNummer;
+                    ChatDAO.insertChatAndReturnID(chatName);
+
+                    Chat chat = new Chat(chatName);
+                    Sprint sprint = new Sprint(sprintNummer, startDate, endDate, chat);
+
+                    SprintDAO.insertSprintAndReturnID(sprint);
+                    System.out.println("Sprint and chat successfully added.");
 
                 } catch (DateTimeParseException e) {
                     System.out.println("Invalid date format. Please use: YYYY-MM-DDTHH:MM");
                 } catch (Exception e) {
                     System.out.println("Error adding sprint: " + e.getMessage());
-                }
-            }
+               }
+             }
             case 2 -> {
                 try {
                     System.out.println("Enter epic name: ");
@@ -110,7 +114,7 @@ public class CLI {
 
                     Chat epicChat = new Chat("epicchat_" + epicName);
                     Epic epic = new Epic(epicName, epicDescription, sprint, epicChat);
-                    EpicDAO.insertEpic(new Epic(epicName, epicDescription, sprint, null));
+                    EpicDAO.insertEpic(epic);
 
 
 
@@ -119,6 +123,27 @@ public class CLI {
                 }
             }
             case 3 -> {
+                try {
+                    System.out.println("Enter userstory name: ");
+                    String usName = scanner.nextLine();
+
+                    System.out.println("Enter userstory description: ");
+                    String usDescription = scanner.nextLine();
+
+                    QueryEpics.getAllEpics();
+                    System.out.print("Enter Epic ID");
+                    int epicID = scanner.nextInt();
+                    scanner.nextLine();
+
+                    Epic epic = QueryEpics.getSingleEpic(epicID);
+                    Chat userStoryChat = new Chat("userstorychat_" + usName);
+                    UserStory userstory = new UserStory(usName, usDescription, userStoryChat, epic);
+                    UserstoryDAO.insertUserstory(userstory);
+
+
+                } catch (Exception e) {
+                    System.out.println("Error adding Userstory: " + e.getMessage());
+                }
             }
             case 4 -> {
                 try {
