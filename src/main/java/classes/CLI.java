@@ -4,6 +4,7 @@ import queries.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 import java.util.Scanner;
 public class CLI {
     Scanner scanner = new Scanner(System.in);
@@ -109,7 +110,7 @@ public class CLI {
 
                     Chat epicChat = new Chat("epicchat_" + epicName);
                     Epic epic = new Epic(epicName, epicDescription, sprint, epicChat);
-                    EpicDAO.insertEpic(epic);
+                    EpicDAO.insertEpic(new Epic(epicName, epicDescription, sprint, null));
 
 
 
@@ -165,11 +166,19 @@ public class CLI {
                     scrumMasterMenu();
                 }
                 case 2 -> {
-                    QueryUsers.getAllUsers();
+                    for (User user : QueryUsers.getAllUsers()) {
+                        System.out.printf("Username: %s Scrummaster: %b%n", user.getUsername(), user.getIsScrumMaster());
+                    }
                     System.out.print("Choose username: ");
                     String username = scanner.nextLine();
 
-                    QueryUsers.getSingleUser(QueryUsers.getUserID());
+                    User selectedUser = null;
+                    for (User user : QueryUsers.getAllUsers()) {
+                        if (Objects.equals(username, user.getUsername())) {
+                            selectedUser = new User(user.getUsername(), user.getIsScrumMaster());
+                            break;
+                        }
+                    }
                     if (selectedUser == null) {
                         System.out.println("User not found. Please try again.");
                         return;
@@ -178,19 +187,20 @@ public class CLI {
                     System.out.print("Enter Message: ");
                     String message = scanner.nextLine();
 
-                    QueryChats.getChatQuery();
+                    for (Chat chat : QueryChats.getAllChats()) {
+                        System.out.printf("Chat ID: %d Chat name: %s", QueryChats.getChatID(chat), chat.getChatName());
+                    }
                     System.out.print("Choose chatID: ");
                     int chatID = scanner.nextInt();
                     Chat selectedChat = QueryChats.getSingleChat(chatID);
 
-                    if (QueryChats.getSingleChat(chatID) == null) {
+                    if (selectedChat == null) {
                         System.out.println("Chat not found. Please try again.");
                         return;
                     } else {
-                        MessageDAO.insertMessage(selectedUser, message, false, selectedChat);
+                        MessageDAO.insertMessage(new Message(selectedUser, message, false, selectedChat));
                         scanner.nextLine();
                     }
-
 
                 }
                 case 3 -> {
