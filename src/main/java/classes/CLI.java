@@ -56,7 +56,7 @@ public class CLI {
             case 1 -> {
                 try {
                     System.out.print("Enter sprint number (int): ");
-                    int sprintNummer = scanner.nextInt();
+                    int sprintInt = scanner.nextInt();
                     scanner.nextLine();
 
                     System.out.print("Use default 2-week sprint duration? (yes/no): ");
@@ -79,8 +79,8 @@ public class CLI {
                         endDate = LocalDateTime.parse(endInput);
                     }
 
-                    int sprintID = SprintDAO.insertSprintAndReturnID(sprintNummer, startDate, endDate);
-                    String chatName = "Sprintchat_" + sprintNummer;
+                    int sprintID = SprintDAO.insertSprintAndReturnID(new Sprint (sprintInt, startDate, endDate));
+                    String chatName = "Sprintchat_" + sprintInt;
                     ChatDAO.insertChat(chatName, sprintID);
                     System.out.println("Sprint and chat succesfully added.");
 
@@ -105,10 +105,12 @@ public class CLI {
 
                     Sprint sprint = QuerySprint.getSingleSprint(sprintID);
 
-                    int epicID = EpicDAO.insertEpic(new Epic(epicName, epicDescription, sprint, null));
 
-                    String chatName = "epicchat" + epicID;
-                    ChatDAO.insertChat(chatName);
+
+                    Chat epicChat = new Chat("epicchat_" + epicName);
+                    Epic epic = new Epic(epicName, epicDescription, sprint, epicChat);
+                    EpicDAO.insertEpic(new Epic(epicName, epicDescription, sprint, null));
+
 
 
                 } catch (Exception e) {
