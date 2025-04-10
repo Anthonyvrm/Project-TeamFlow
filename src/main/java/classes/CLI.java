@@ -136,11 +136,10 @@ public class CLI {
                     scanner.nextLine();
 
                     Epic epic = QueryEpics.getSingleEpic(epicID);
-
-
                     Chat userStoryChat = new Chat("userstorychat_" + usName);
                     UserStory userstory = new UserStory(usName, usDescription, userStoryChat, epic);
-                    UserstoryDAO.insertUserstory(new UserStory(usName, usDescription, null, epic));
+                    UserstoryDAO.insertUserstory(userstory);
+
 
                 } catch (Exception e) {
                     System.out.println("Error adding Userstory: " + e.getMessage());
