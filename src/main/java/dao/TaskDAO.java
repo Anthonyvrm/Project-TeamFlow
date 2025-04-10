@@ -10,6 +10,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class TaskDAO {
+
+    public static void insertTask(Task task) {
+        String sql = "INSERT INTO Task(taskDescription,usID) VALUES(?,?)";
+        try (Connection conn = DatabaseConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, task.getTaskDescription());
+            pstmt.setInt(2, QueryUserStory.getUserStoryID(task.getUserStory()));
+            pstmt.executeUpdate();
+            System.out.println("Task inserted successfully.");
+        } catch (SQLException e) {
+            System.out.println("Insert failed: " + e.getMessage());
+        }
+    }
     public static int insertTaskAndReturnID(Task task) {
         String sql = "INSERT INTO Task(taskDescription,usID) VALUES(?,?)";
         int taskID = -1;
