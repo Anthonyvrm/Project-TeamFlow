@@ -6,25 +6,29 @@ import database.DatabaseConnection;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class QuerySprint {
-    public static void getAllSprints() {
+    public static ArrayList<Sprint> getAllSprints() {
         String sql = "SELECT * FROM Sprint";
+        ArrayList<Sprint> sprint = new ArrayList<>();
 
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
-                int sprintID = rs.getInt("sprintID");
                 int sprintInt = rs.getInt("sprintInt");
+                LocalDateTime startDate = rs.getTimestamp("startDate").toLocalDateTime();
+                LocalDateTime endDate = rs.getTimestamp("endDate").toLocalDateTime();
 
-                System.out.println("sprintID: " + sprintID + ", Sprint: " + sprintInt);
+                sprint.add(new Sprint(sprintInt, startDate, endDate, null));
             }
 
         } catch (SQLException e) {
             System.out.println("Query mislukt: " + e.getMessage());
         }
+        return sprint;
     }
 
     public static int getSprintID(Sprint sprint) {
