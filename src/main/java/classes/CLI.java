@@ -160,12 +160,12 @@ public class CLI {
 
 
                     UserStory userstory = QueryUserStory.getSingleUserStory(userStoryID);
-                    Chat taskChat = new Chat("userstorychat_" + taskName);
+                    Chat taskChat = new Chat("taskchat_" + taskName);
                     Task task = new Task(userstory, taskDescription, taskChat);
                     TaskDAO.insertTask(task);
 
                 } catch (Exception e) {
-                    System.out.println("Error adding sprint: " + e.getMessage());
+                    System.out.println("Error adding task: " + e.getMessage());
                 }
             }
             case 5 -> {
