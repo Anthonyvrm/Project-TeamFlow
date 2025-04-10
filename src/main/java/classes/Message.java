@@ -54,7 +54,7 @@ public class Message {
     }
 
 
-    public void sendMessageToChat() {
-        MessageDAO.insertMessage(this.user, this.message, this.isHighlighted, this.chat);
+    public static void sendMessageToChat(Message message) {
+        MessageDAO.insertMessage(message);
     }
 }
