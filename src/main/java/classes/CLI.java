@@ -27,10 +27,11 @@ public class CLI {
                 boolean isScrumMaster = scanner.nextBoolean();
                 scanner.nextLine(); // Consume the leftover newline character
 
-                UserDAO.insertUser(username, isScrumMaster);
+                UserDAO.insertUser(new User (username, isScrumMaster));
+                System.out.println("User: " + username + "Scrummaster: " + isScrumMaster );
             }
             case 2 -> {
-                QueryUsers.getUsers();
+                QueryUsers.getAllUsers();
             }
             case 3 -> {
                 mainMenu();
@@ -139,11 +140,11 @@ public class CLI {
                     scrumMasterMenu();
                 }
                 case 2 -> {
-                    QueryUsers.getUsers();
+                    QueryUsers.getAllUsers();
                     System.out.print("Choose username: ");
                     String username = scanner.nextLine();
 
-                    User selectedUser = QueryUsers.getSingleUserByName(username);
+                    QueryUsers.getSingleUser(QueryUsers.getUserID());
                     if (selectedUser == null) {
                         System.out.println("User not found. Please try again.");
                         return;
