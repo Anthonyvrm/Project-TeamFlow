@@ -137,7 +137,9 @@ public class CLI {
                     scanner.nextLine();
 
                     Epic epic = QueryEpics.getSingleEpic(epicID);
+
                     Chat userStoryChat = new Chat("userstorychat_" + usName);
+                    ChatDAO.insertChat(userStoryChat);
                     UserStory userstory = new UserStory(usName, usDescription, userStoryChat, epic);
                     UserstoryDAO.insertUserstory(userstory);
 
@@ -162,6 +164,7 @@ public class CLI {
 
                     UserStory userstory = QueryUserStory.getSingleUserStory(userStoryID);
                     Chat taskChat = new Chat("taskchat_" + taskName);
+                    ChatDAO.insertChat(taskChat);
                     Task task = new Task(userstory, taskDescription, taskChat);
                     TaskDAO.insertTask(task);
 
