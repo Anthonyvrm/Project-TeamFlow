@@ -113,6 +113,7 @@ public class CLI {
 
 
                     Chat epicChat = new Chat("epicchat_" + epicName);
+                    ChatDAO.insertChat(epicChat);
                     Epic epic = new Epic(epicName, epicDescription, sprint, epicChat);
                     EpicDAO.insertEpic(epic);
 
