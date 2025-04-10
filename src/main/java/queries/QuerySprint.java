@@ -86,4 +86,22 @@ public class QuerySprint {
         }
         return sprint;
     }
+
+    public static ArrayList<Chat> getChatsBySprint(int sprintId) {
+        String sql = "SELECT * FROM Sprint WHERE sprintID = ?";
+        ArrayList<Chat> chats = new ArrayList<>();
+
+        try (Connection conn = DatabaseConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, sprintId);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                int chatID = rs.getInt("chatID");
+                chats.add(QueryChats.getSingleChat(chatID));
+            }
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+        }
+        return chats;
+    }
 }

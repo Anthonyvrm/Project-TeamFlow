@@ -57,8 +57,8 @@ public class CLI {
             case 1 -> {
                 try {
                     System.out.print("Enter sprint number (int): ");
-                    int sprintNummer = scanner.nextInt();
-                    scanner.nextLine(); // consume newline
+                    int sprintInt = scanner.nextInt();
+                    scanner.nextLine();
 
                     System.out.print("Use default 2-week sprint duration? (yes/no): ");
                     String useDefault = scanner.nextLine();
@@ -80,21 +80,19 @@ public class CLI {
                         endDate = LocalDateTime.parse(endInput);
                     }
 
-                    String chatName = "Sprintchat_" + sprintNummer;
-                    ChatDAO.insertChatAndReturnID(chatName);
+                    String chatName = "Sprintchat_" + sprintInt;
+                    Chat sprintChat = new Chat(chatName);
+                    ChatDAO.insertChat(sprintChat);
+                    int sprintID = SprintDAO.insertSprintAndReturnID(new Sprint (sprintInt, startDate, endDate, sprintChat));
 
-                    Chat chat = new Chat(chatName);
-                    Sprint sprint = new Sprint(sprintNummer, startDate, endDate, chat);
-
-                    SprintDAO.insertSprintAndReturnID(sprint);
-                    System.out.println("Sprint and chat successfully added.");
+                    System.out.printf("Sprint (ID: %d) and chat succesfully added.", sprintID);
 
                 } catch (DateTimeParseException e) {
                     System.out.println("Invalid date format. Please use: YYYY-MM-DDTHH:MM");
                 } catch (Exception e) {
                     System.out.println("Error adding sprint: " + e.getMessage());
-               }
-             }
+                }
+            }
             case 2 -> {
                 try {
                     System.out.println("Enter epic name: ");
@@ -110,12 +108,9 @@ public class CLI {
 
                     Sprint sprint = QuerySprint.getSingleSprint(sprintID);
 
-
-
                     Chat epicChat = new Chat("epicchat_" + epicName);
                     ChatDAO.insertChat(epicChat);
-                    Epic epic = new Epic(epicName, epicDescription, sprint, epicChat);
-                    EpicDAO.insertEpic(epic);
+                    EpicDAO.insertEpic(new Epic(epicName, epicDescription, sprint, epicChat));
 
 
 
@@ -124,27 +119,6 @@ public class CLI {
                 }
             }
             case 3 -> {
-                try {
-                    System.out.println("Enter userstory name: ");
-                    String usName = scanner.nextLine();
-
-                    System.out.println("Enter userstory description: ");
-                    String usDescription = scanner.nextLine();
-
-                    QueryEpics.getAllEpics();
-                    System.out.print("Enter Epic ID");
-                    int epicID = scanner.nextInt();
-                    scanner.nextLine();
-
-                    Epic epic = QueryEpics.getSingleEpic(epicID);
-                    Chat userStoryChat = new Chat("userstorychat_" + usName);
-                    UserStory userstory = new UserStory(usName, usDescription, userStoryChat, epic);
-                    UserstoryDAO.insertUserstory(userstory);
-
-
-                } catch (Exception e) {
-                    System.out.println("Error adding Userstory: " + e.getMessage());
-                }
             }
             case 4 -> {
                 try {
@@ -155,16 +129,16 @@ public class CLI {
                     String taskDescription = scanner.nextLine();
 
                     QueryUserStory.getAllUserStories();
-                    System.out.println("Enter User Story ID: ");
+                    System.out.println("Enter the User Story ID: ");
                     int userStoryID = scanner.nextInt();
                     scanner.nextLine();
 
+                    Chat taskChat = new Chat(taskName);
+                    int taskID = TaskDAO.insertTaskAndReturnID(new Task( QueryUserStory.getSingleUserStory(userStoryID), taskDescription, taskChat));
 
-                    UserStory userstory = QueryUserStory.getSingleUserStory(userStoryID);
-                    Chat taskChat = new Chat("userstorychat_" + taskName);
-                    Task task = new Task(userstory, taskDescription, taskChat);
-                    TaskDAO.insertTask(task);
-
+                    String chatName = "taskchat_" + taskID;
+                    ChatDAO.insertChat(taskChat);
+                    System.out.println("Sprint and chat succesfully added.");
                 } catch (Exception e) {
                     System.out.println("Error adding sprint: " + e.getMessage());
                 }
@@ -214,7 +188,7 @@ public class CLI {
                     String message = scanner.nextLine();
 
                     for (Chat chat : QueryChats.getAllChats()) {
-                        System.out.printf("Chat ID: %d Chat name: %s", QueryChats.getChatID(chat), chat.getChatName());
+                        System.out.printf("Chat ID: %d Chat name: %s%n", QueryChats.getChatID(chat), chat.getChatName());
                     }
                     System.out.print("Choose chatID: ");
                     int chatID = scanner.nextInt();
@@ -230,14 +204,17 @@ public class CLI {
 
                 }
                 case 3 -> {
-                    // Toon alle chats
-                    QuerySprint.getSprintQuery();
-
+                    for (Sprint sprint : QuerySprint.getAllSprints()) {
+                        System.out.printf("Sprint ID: %d SprintInt: %d%n", QuerySprint.getSprintID(sprint), sprint.getSprintInt());
+                    }
                     System.out.println("Choose sprintID: ");
                     int sprintID = scanner.nextInt();
                     scanner.nextLine();
 
-                    QueryChats.getChatsBySprint(sprintID);
+                    for (Chat chat : QuerySprint.getChatsBySprint(sprintID)){
+                        System.out.printf("Chat ID: %d Chat name: %s%n", QueryChats.getChatID(chat), chat.getChatName());
+                    }
+
                     System.out.print("Choose chatID: ");
                     int chatID = scanner.nextInt();
                     scanner.nextLine();
