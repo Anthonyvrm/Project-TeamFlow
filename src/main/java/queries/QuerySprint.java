@@ -75,14 +75,14 @@ public class QuerySprint {
                 if (chat != null) {
                    sprint = new Sprint(sprintInt, startDate, endDate, chat);
                 } else {
-                    System.out.println("⚠ Chat not found for sprint.");
+                    System.out.println("Chat not found for sprint.");
                 }
             } else {
-                System.out.println("⚠ Sprint not found.");
+                System.out.println("Sprint not found.");
             }
 
         } catch (SQLException e) {
-            System.out.println("⚠ Sprint query failed: " + e.getMessage());
+            System.out.println("Sprint query failed: " + e.getMessage());
         }
         return sprint;
     }
