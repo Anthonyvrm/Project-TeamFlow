@@ -27,10 +27,11 @@ public class CLI {
                 boolean isScrumMaster = scanner.nextBoolean();
                 scanner.nextLine(); // Consume the leftover newline character
 
-                UserDAO.insertUser(username, isScrumMaster);
+                UserDAO.insertUser(new User (username, isScrumMaster));
+                System.out.println("User: " + username + "Scrummaster: " + isScrumMaster );
             }
             case 2 -> {
-                QueryUsers.getUsers();
+                QueryUsers.getAllUsers();
             }
             case 3 -> {
                 mainMenu();
@@ -55,7 +56,7 @@ public class CLI {
             case 1 -> {
                 try {
                     System.out.print("Enter sprint number (int): ");
-                    int sprintNummer = scanner.nextInt();
+                    int sprintInt = scanner.nextInt();
                     scanner.nextLine();
 
                     System.out.print("Use default 2-week sprint duration? (yes/no): ");
@@ -78,8 +79,8 @@ public class CLI {
                         endDate = LocalDateTime.parse(endInput);
                     }
 
-                    int sprintID = SprintDAO.insertSprintAndReturnID(sprintNummer, startDate, endDate);
-                    String chatName = "Sprintchat_" + sprintNummer;
+                    int sprintID = SprintDAO.insertSprintAndReturnID(new Sprint (sprintInt, startDate, endDate));
+                    String chatName = "Sprintchat_" + sprintInt;
                     ChatDAO.insertChat(chatName, sprintID);
                     System.out.println("Sprint and chat succesfully added.");
 
@@ -90,6 +91,31 @@ public class CLI {
                 }
             }
             case 2 -> {
+                try {
+                    System.out.println("Enter epic name: ");
+                    String epicName = scanner.nextLine();
+
+                    System.out.println("Enter the epic description: ");
+                    String epicDescription = scanner.nextLine();
+
+                    QuerySprint.getAllSprints();
+                    System.out.println("Enter the Sprint ID: ");
+                    int sprintID = scanner.nextInt();
+                    scanner.nextLine();
+
+                    Sprint sprint = QuerySprint.getSingleSprint(sprintID);
+
+
+
+                    Chat epicChat = new Chat("epicchat_" + epicName);
+                    Epic epic = new Epic(epicName, epicDescription, sprint, epicChat);
+                    EpicDAO.insertEpic(new Epic(epicName, epicDescription, sprint, null));
+
+
+
+                } catch (Exception e) {
+                    System.out.println("Error adding sprint: " + e.getMessage());
+                }
             }
             case 3 -> {
             }
@@ -139,11 +165,11 @@ public class CLI {
                     scrumMasterMenu();
                 }
                 case 2 -> {
-                    QueryUsers.getUsers();
+                    QueryUsers.getAllUsers();
                     System.out.print("Choose username: ");
                     String username = scanner.nextLine();
 
-                    User selectedUser = QueryUsers.getSingleUserByName(username);
+                    QueryUsers.getSingleUser(QueryUsers.getUserID());
                     if (selectedUser == null) {
                         System.out.println("User not found. Please try again.");
                         return;
