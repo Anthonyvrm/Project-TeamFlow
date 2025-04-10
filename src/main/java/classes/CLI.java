@@ -108,9 +108,12 @@ public class CLI {
 
                     Sprint sprint = QuerySprint.getSingleSprint(sprintID);
 
+
+
                     Chat epicChat = new Chat("epicchat_" + epicName);
                     ChatDAO.insertChat(epicChat);
-                    EpicDAO.insertEpic(new Epic(epicName, epicDescription, sprint, epicChat));
+                    Epic epic = new Epic(epicName, epicDescription, sprint, epicChat);
+                    EpicDAO.insertEpic(epic);
 
 
 
@@ -118,6 +121,8 @@ public class CLI {
                     System.out.println("Error adding sprint: " + e.getMessage());
                 }
             }
+
+
             case 3 -> {
                 try {
                     System.out.println("Enter userstory name: ");
