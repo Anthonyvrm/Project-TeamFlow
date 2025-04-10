@@ -4,6 +4,7 @@ import queries.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 import java.util.Scanner;
 public class CLI {
     Scanner scanner = new Scanner(System.in);
@@ -56,8 +57,8 @@ public class CLI {
             case 1 -> {
                 try {
                     System.out.print("Enter sprint number (int): ");
-                    int sprintInt = scanner.nextInt();
-                    scanner.nextLine();
+                    int sprintNummer = scanner.nextInt();
+                    scanner.nextLine(); // consume newline
 
                     System.out.print("Use default 2-week sprint duration? (yes/no): ");
                     String useDefault = scanner.nextLine();
@@ -79,17 +80,21 @@ public class CLI {
                         endDate = LocalDateTime.parse(endInput);
                     }
 
-                    int sprintID = SprintDAO.insertSprintAndReturnID(new Sprint (sprintInt, startDate, endDate));
-                    String chatName = "Sprintchat_" + sprintInt;
-                    ChatDAO.insertChat(chatName, sprintID);
-                    System.out.println("Sprint and chat succesfully added.");
+                    String chatName = "Sprintchat_" + sprintNummer;
+                    ChatDAO.insertChatAndReturnID(chatName);
+
+                    Chat chat = new Chat(chatName);
+                    Sprint sprint = new Sprint(sprintNummer, startDate, endDate, chat);
+
+                    SprintDAO.insertSprintAndReturnID(sprint);
+                    System.out.println("Sprint and chat successfully added.");
 
                 } catch (DateTimeParseException e) {
                     System.out.println("Invalid date format. Please use: YYYY-MM-DDTHH:MM");
                 } catch (Exception e) {
                     System.out.println("Error adding sprint: " + e.getMessage());
-                }
-            }
+               }
+             }
             case 2 -> {
                 try {
                     System.out.println("Enter epic name: ");
@@ -187,11 +192,19 @@ public class CLI {
                     scrumMasterMenu();
                 }
                 case 2 -> {
-                    QueryUsers.getAllUsers();
+                    for (User user : QueryUsers.getAllUsers()) {
+                        System.out.printf("Username: %s Scrummaster: %b%n", user.getUsername(), user.getIsScrumMaster());
+                    }
                     System.out.print("Choose username: ");
                     String username = scanner.nextLine();
 
-                    QueryUsers.getSingleUser(QueryUsers.getUserID());
+                    User selectedUser = null;
+                    for (User user : QueryUsers.getAllUsers()) {
+                        if (Objects.equals(username, user.getUsername())) {
+                            selectedUser = new User(user.getUsername(), user.getIsScrumMaster());
+                            break;
+                        }
+                    }
                     if (selectedUser == null) {
                         System.out.println("User not found. Please try again.");
                         return;
@@ -200,19 +213,20 @@ public class CLI {
                     System.out.print("Enter Message: ");
                     String message = scanner.nextLine();
 
-                    QueryChats.getChatQuery();
+                    for (Chat chat : QueryChats.getAllChats()) {
+                        System.out.printf("Chat ID: %d Chat name: %s", QueryChats.getChatID(chat), chat.getChatName());
+                    }
                     System.out.print("Choose chatID: ");
                     int chatID = scanner.nextInt();
                     Chat selectedChat = QueryChats.getSingleChat(chatID);
 
-                    if (QueryChats.getSingleChat(chatID) == null) {
+                    if (selectedChat == null) {
                         System.out.println("Chat not found. Please try again.");
                         return;
                     } else {
-                        MessageDAO.insertMessage(selectedUser, message, false, selectedChat);
+                        MessageDAO.insertMessage(new Message(selectedUser, message, false, selectedChat));
                         scanner.nextLine();
                     }
-
 
                 }
                 case 3 -> {
