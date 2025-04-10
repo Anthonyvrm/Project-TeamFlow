@@ -10,8 +10,6 @@ public class Main {
         // Initialize the database
         DatabaseSetup.createTables();
 
-        UserDAO.insertTestUser();
-
         //Genereer het menu
         CLI.main();
     }

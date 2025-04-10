@@ -7,7 +7,7 @@ import java.sql.*;
 
 public class ChatDAO {
     public static void insertChat(Chat chat) {
-        String sql = "INSERT INTO Chat VALUES(?)";
+        String sql = "INSERT INTO Chat(Chatname) VALUES(?)";
 
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

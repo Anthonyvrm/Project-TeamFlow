@@ -2,6 +2,7 @@ package dao;
 
 import classes.*;
 import database.DatabaseConnection;
+import queries.QueryChats;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -9,13 +10,14 @@ import java.time.LocalDateTime;
 public class SprintDAO {
 
     public static int insertSprintAndReturnID(Sprint sprint) {
-        String sql = "INSERT INTO Sprint(sprintInt, startDate, endDate) VALUES(?, ?, ?)";
+        String sql = "INSERT INTO Sprint(sprintInt, startDate, endDate, chatID) VALUES(?, ?, ?, ?)";
         int sprintID = -1;
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setInt(1, sprint.getSprintInt());
             pstmt.setTimestamp(2, java.sql.Timestamp.valueOf(sprint.getStartDate()));
             pstmt.setTimestamp(3, java.sql.Timestamp.valueOf(sprint.getEndDate()));
+            pstmt.setInt(4, QueryChats.getChatID(sprint.getSprintChat()));
             pstmt.executeUpdate();
 
             try (ResultSet keys = pstmt.getGeneratedKeys()) {

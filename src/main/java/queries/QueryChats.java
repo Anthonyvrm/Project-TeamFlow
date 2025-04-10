@@ -28,28 +28,9 @@ public class QueryChats {
         return chats;
     }
 
-    public static ArrayList<Chat> getChatsBySprint(int sprintId) {
-        String sql = "SELECT * FROM Chat WHERE sprintID = ?";
-        ArrayList<Chat> chats = new ArrayList<>();
-
-        try (Connection conn = DatabaseConnection.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, sprintId);
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
-                String chatName = rs.getString("chatName");
-                Chat chat = new Chat(chatName);
-                chats.add(chat);
-            }
-        } catch (SQLException e) {
-            System.out.println("Query failed: " + e.getMessage());
-        }
-        return chats;
-    }
-
     public static Chat getSingleChat(int chatID) {
         String sql = "SELECT * FROM Chat WHERE chatID = ?";
-
+        Chat chat = null;
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -58,12 +39,12 @@ public class QueryChats {
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     String retrievedChatName = rs.getString("chatName");
-                    return new Chat(retrievedChatName);
+                    chat = new Chat(retrievedChatName);
                 } else {
                     System.out.println("Chat not found.");
-                    return null;
                 }
             }
+            return chat;
 
         } catch (SQLException e) {
             System.out.println("Query failed: " + e.getMessage());
@@ -73,7 +54,6 @@ public class QueryChats {
 
     public static int getChatID(Chat chat) {
         String sql = "SELECT chatID FROM Chat WHERE chatName = ?";  // Gebruik parameterized query
-
         int retrievedChatID = -1;
 
         try (Connection conn = DatabaseConnection.connect();
