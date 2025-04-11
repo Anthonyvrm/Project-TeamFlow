@@ -18,7 +18,7 @@ public class QueryEpics {
 
             while (rs.next()) {
                 String epicName = rs.getString("epicName");
-                String epicDescription = rs.getString("epicDesription");
+                String epicDescription = rs.getString("epicDescription");
                 Sprint sprint = QuerySprint.getSingleSprint(rs.getInt("sprintID"));
                 Chat chat = QueryChats.getSingleChat(rs.getInt("chatID"));
                 Epic epic = new Epic(epicName, epicDescription, sprint, chat);
