@@ -80,7 +80,7 @@ public class CLI {
                         endDate = LocalDateTime.parse(endInput);
                     }
 
-                    String chatName = "Sprintchat: " + sprintInt;
+                    String chatName = "Sprintchat:" + sprintInt;
                     Chat sprintChat = new Chat(chatName);
                     ChatDAO.insertChat(sprintChat);
                     int sprintID = SprintDAO.insertSprintAndReturnID(new Sprint (sprintInt, startDate, endDate, sprintChat));
