@@ -29,7 +29,7 @@ public class CLI {
                 scanner.nextLine(); // Consume the leftover newline character
 
                 UserDAO.insertUser(new User (username, isScrumMaster));
-                System.out.println("User: " + username + "Scrummaster: " + isScrumMaster );
+                System.out.println("User: " + username + " Scrummaster: " + isScrumMaster);
             }
             case 2 -> {
                 QueryUsers.getAllUsers();
