@@ -48,4 +48,8 @@ public class Sprint {
     public void setSprintChat(Chat sprintChat) {
         this.sprintChat = sprintChat;
     }
+    public boolean isCurrent() {
+        LocalDateTime now = LocalDateTime.now();
+        return (now.isEqual(startDate) || now.isAfter(startDate)) && now.isBefore(endDate);
+    }
 }
