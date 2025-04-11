@@ -47,7 +47,8 @@ public class CLI {
         System.out.println("2. Add Epic");
         System.out.println("3. Add User Story");
         System.out.println("4. Add Task");
-        System.out.println("5. Exit");
+        System.out.println("5. Toon Actuele Sprint status");
+        System.out.println("6. Exit");
         System.out.print ("Choose an option: ");
 
         int choice = scanner.nextInt();
@@ -171,6 +172,16 @@ public class CLI {
                 }
             }
             case 5 -> {
+                try {
+                    System.out.println("Overzicht van sprints:");
+                    for (Sprint sprint : QuerySprint.getAllSprints()) {
+                        String status = sprint.isCurrent() ? "Actueel" : "Niet actueel";
+                        System.out.printf("Sprint ID: %d, Sprint Int: %d, Status: %s%n",
+                                QuerySprint.getSprintID(sprint), sprint.getSprintInt(), status);
+                    }
+                } catch (Exception e) {
+                    System.out.println("Er is een fout opgetreden: " + e.getMessage());
+                }
             }
         }
     }
