@@ -26,6 +26,11 @@ public class UserStory implements Linker {
         return this.tasks;
     }
 
+    public void addTask(Task task) {
+        this.tasks.add(task);
+        task.setUserStory(this);
+    }
+
     public void setUsName(String usName) {
         this.usName = usName;
     }
@@ -50,11 +55,9 @@ public class UserStory implements Linker {
         this.userStoryChat = userStoryChat;
     }
 
-
     public Epic getEpic() {
         return epic;
     }
-
 
     public void setEpic(Epic epic) {
         this.epic = epic;
@@ -62,6 +65,5 @@ public class UserStory implements Linker {
 
     @Override
     public void linkMessage() {
-
     }
 }
