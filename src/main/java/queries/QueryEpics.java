@@ -51,7 +51,7 @@ public class QueryEpics {
     }
 
     public static int getEpicID(Epic epic) {
-        String sql = "SELECT epicID FROM Epic";
+        String sql = "SELECT epicID FROM Epic WHERE epicName = ?";
         int epicID = -1;
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)){

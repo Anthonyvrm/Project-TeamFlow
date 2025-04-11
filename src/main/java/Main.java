@@ -1,4 +1,3 @@
-import dao.UserDAO;
 import database.DatabaseSetup;
 import classes.*;
 import java.util.Scanner;

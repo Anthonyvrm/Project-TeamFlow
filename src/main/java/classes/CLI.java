@@ -135,13 +135,9 @@ public class CLI {
                     scanner.nextLine();
 
                     Epic epic = QueryEpics.getSingleEpic(epicID);
-
                     Chat userStoryChat = new Chat("Userstory: " + usName);
                     ChatDAO.insertChat(userStoryChat);
-                    UserStory userstory = new UserStory(usName, usDescription, userStoryChat, epic);
-                    UserstoryDAO.insertUserstory(userstory);
-
-
+                    UserstoryDAO.insertUserstory(new UserStory(usName, usDescription, userStoryChat, epic));
                 } catch (Exception e) {
                     System.out.println("Error adding Userstory: " + e.getMessage());
                 }
@@ -213,7 +209,7 @@ public class CLI {
 
                     String message;
 
-                    if (selectedUser.getIsScrumMaster() == true) {
+                    if (selectedUser.getIsScrumMaster()) {
                         System.out.println("Do you want to highlight this message? (J/N)");
                         String keuze = scanner.nextLine();
                         if (keuze.equalsIgnoreCase("j")) {
