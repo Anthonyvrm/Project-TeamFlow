@@ -44,7 +44,7 @@ public class CLI {
     public void scrumManagementMenu() {
         System.out.println("\n===== Scrum Master Menu =====");
         System.out.println("1. Add Sprint");
-        System.out.println("2. Add Epic.");
+        System.out.println("2. Add Epic");
         System.out.println("3. Add User Story");
         System.out.println("4. Add Task");
         System.out.println("5. Exit");
@@ -60,13 +60,13 @@ public class CLI {
                     int sprintInt = scanner.nextInt();
                     scanner.nextLine();
 
-                    System.out.print("Use default 2-week sprint duration? (yes/no): ");
+                    System.out.print("Use default 2-week sprint duration? (J/N): ");
                     String useDefault = scanner.nextLine();
 
                     LocalDateTime startDate;
                     LocalDateTime endDate;
 
-                    if (useDefault.equalsIgnoreCase("yes")) {
+                    if (useDefault.equalsIgnoreCase("J")) {
                         startDate = LocalDateTime.now();
                         endDate = startDate.plusWeeks(2);
                         System.out.println("Sprint will run from " + startDate + " to " + endDate);
@@ -80,7 +80,7 @@ public class CLI {
                         endDate = LocalDateTime.parse(endInput);
                     }
 
-                    String chatName = "Sprintchat_" + sprintInt;
+                    String chatName = "Sprintchat:" + sprintInt;
                     Chat sprintChat = new Chat(chatName);
                     ChatDAO.insertChat(sprintChat);
                     int sprintID = SprintDAO.insertSprintAndReturnID(new Sprint (sprintInt, startDate, endDate, sprintChat));
@@ -108,12 +108,10 @@ public class CLI {
 
                     Sprint sprint = QuerySprint.getSingleSprint(sprintID);
 
-                    Chat epicChat = new Chat("epicchat_" + epicName);
+                    Chat epicChat = new Chat("Epic: " + epicName);
                     ChatDAO.insertChat(epicChat);
                     Epic epic = new Epic(epicName, epicDescription, sprint, epicChat);
                     EpicDAO.insertEpic(epic);
-
-
 
                 } catch (Exception e) {
                     System.out.println("Error adding sprint: " + e.getMessage());
@@ -130,13 +128,13 @@ public class CLI {
                     String usDescription = scanner.nextLine();
 
                     QueryEpics.getAllEpics();
-                    System.out.print("Enter Epic ID");
+                    System.out.print("Enter Epic ID: ");
                     int epicID = scanner.nextInt();
                     scanner.nextLine();
 
                     Epic epic = QueryEpics.getSingleEpic(epicID);
 
-                    Chat userStoryChat = new Chat("userstorychat_" + usName);
+                    Chat userStoryChat = new Chat("Userstory: " + usName);
                     ChatDAO.insertChat(userStoryChat);
                     UserStory userstory = new UserStory(usName, usDescription, userStoryChat, epic);
                     UserstoryDAO.insertUserstory(userstory);
@@ -161,7 +159,7 @@ public class CLI {
 
 
                     UserStory userstory = QueryUserStory.getSingleUserStory(userStoryID);
-                    Chat taskChat = new Chat("taskchat_" + taskName);
+                    Chat taskChat = new Chat("Task: " + taskName);
                     ChatDAO.insertChat(taskChat);
                     Task task = new Task(userstory, taskDescription, taskChat);
                     TaskDAO.insertTask(task);
