@@ -108,8 +108,6 @@ public class CLI {
 
                     Sprint sprint = QuerySprint.getSingleSprint(sprintID);
 
-
-
                     Chat epicChat = new Chat("epicchat_" + epicName);
                     ChatDAO.insertChat(epicChat);
                     Epic epic = new Epic(epicName, epicDescription, sprint, epicChat);
@@ -137,7 +135,9 @@ public class CLI {
                     scanner.nextLine();
 
                     Epic epic = QueryEpics.getSingleEpic(epicID);
+
                     Chat userStoryChat = new Chat("userstorychat_" + usName);
+                    ChatDAO.insertChat(userStoryChat);
                     UserStory userstory = new UserStory(usName, usDescription, userStoryChat, epic);
                     UserstoryDAO.insertUserstory(userstory);
 
@@ -162,6 +162,7 @@ public class CLI {
 
                     UserStory userstory = QueryUserStory.getSingleUserStory(userStoryID);
                     Chat taskChat = new Chat("taskchat_" + taskName);
+                    ChatDAO.insertChat(taskChat);
                     Task task = new Task(userstory, taskDescription, taskChat);
                     TaskDAO.insertTask(task);
 
@@ -210,8 +211,37 @@ public class CLI {
                         return;
                     }
 
+                    String message;
+
+                    if (selectedUser.getIsScrumMaster() == true) {
+                        System.out.println("Do you want to highlight this message? (J/N)");
+                        String keuze = scanner.nextLine();
+                        if (keuze.equalsIgnoreCase("j")) {
+                            System.out.print("Enter Message: ");
+                            message = scanner.nextLine();
+                            String highlightedMessage = "*** " + message;
+                            System.out.println("Highlighted Message: " + highlightedMessage);
+
+                            for (Chat chat : QueryChats.getAllChats()) {
+                                System.out.printf("Chat ID: %d Chat name: %s%n", QueryChats.getChatID(chat), chat.getChatName());
+                            }
+                            System.out.print("Choose chatID: ");
+                            int chatID = scanner.nextInt();
+                            Chat selectedChat = QueryChats.getSingleChat(chatID);
+
+                            if (selectedChat == null) {
+                                System.out.println("Chat not found. Please try again.");
+                                return;
+                            } else {
+                                MessageDAO.insertMessage(new Message(selectedUser, message, true, selectedChat));
+                                scanner.nextLine();
+                            }
+                            return;
+                        }
+                    }
+
                     System.out.print("Enter Message: ");
-                    String message = scanner.nextLine();
+                    message = scanner.nextLine();
 
                     for (Chat chat : QueryChats.getAllChats()) {
                         System.out.printf("Chat ID: %d Chat name: %s%n", QueryChats.getChatID(chat), chat.getChatName());
