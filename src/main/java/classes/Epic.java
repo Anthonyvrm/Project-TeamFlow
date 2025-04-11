@@ -7,7 +7,7 @@ public class Epic implements Linker {
 
     private String epicName;
     private String epicDescription;
-    private List<UserStory> userStories;
+    private ArrayList<UserStory> userStories;
     private Sprint sprint;
     private Chat epicChat;
 
@@ -35,7 +35,7 @@ public class Epic implements Linker {
         this.epicDescription = epicDescription;
     }
 
-    public List<UserStory> getUserStories() {
+    public ArrayList<UserStory> getUserStories() {
         return userStories;
     }
 
