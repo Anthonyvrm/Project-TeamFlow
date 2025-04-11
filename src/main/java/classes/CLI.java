@@ -29,7 +29,7 @@ public class CLI {
                 scanner.nextLine(); // Consume the leftover newline character
 
                 UserDAO.insertUser(new User (username, isScrumMaster));
-                System.out.println("User: " + username + "Scrummaster: " + isScrumMaster );
+                System.out.println("User: " + username + " Scrummaster: " + isScrumMaster);
             }
             case 2 -> {
                 QueryUsers.getAllUsers();
@@ -101,7 +101,9 @@ public class CLI {
                     System.out.println("Enter the epic description: ");
                     String epicDescription = scanner.nextLine();
 
-                    QuerySprint.getAllSprints();
+                    for (Sprint sprint : QuerySprint.getAllSprints()) {
+                        System.out.printf("Sprint ID: %d SprintInt: %d%n", QuerySprint.getSprintID(sprint), sprint.getSprintInt());
+                    }
                     System.out.println("Enter the Sprint ID: ");
                     int sprintID = scanner.nextInt();
                     scanner.nextLine();
