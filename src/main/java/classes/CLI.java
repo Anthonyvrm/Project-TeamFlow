@@ -32,7 +32,9 @@ public class CLI {
                 System.out.println("User: " + username + " Scrummaster: " + isScrumMaster);
             }
             case 2 -> {
-                QueryUsers.getAllUsers();
+                for (User user : QueryUsers.getAllUsers()) {
+                    System.out.printf("Username: %s Scrummaster: %b%n", user.getUsername(), user.getIsScrumMaster());
+                }
             }
             case 3 -> {
                 mainMenu();
