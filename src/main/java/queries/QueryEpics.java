@@ -30,6 +30,24 @@ public class QueryEpics {
         return epics;
     }
 
+    public static ArrayList<Epic> getEpicsBySprint(int sprintId) {
+        String sql = "SELECT epicID FROM Sprint WHERE sprintID = ?";
+        ArrayList<Epic> epics = new ArrayList<>();
+
+        try (Connection conn = DatabaseConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, sprintId);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                int epicID = rs.getInt("epicID");
+                epics.add(QueryEpics.getSingleEpic(epicID));
+            }
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+        }
+        return epics;
+    }
+
     public static Epic getSingleEpic(int epicID){
         String sql = "SELECT * FROM Epic WHERE epicID = ?";
         Epic epic = null;

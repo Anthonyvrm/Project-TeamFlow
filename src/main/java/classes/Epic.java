@@ -17,7 +17,6 @@ public class Epic implements Linker {
         this.sprint = sprint;
         this.epicChat = epicChat;
         this.userStories = new ArrayList<>();
-
     }
 
     public String getEpicName() {
