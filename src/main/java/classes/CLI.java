@@ -228,7 +228,7 @@ public class CLI {
                         if (keuze.equalsIgnoreCase("j")) {
                             System.out.print("Enter Message: ");
                             message = scanner.nextLine();
-                            String highlightedMessage = "*** " + message;
+                            String highlightedMessage = "***" + message;
                             System.out.println("Highlighted Message: " + highlightedMessage);
 
                             for (Chat chat : QueryChats.getAllChats()) {
@@ -276,7 +276,7 @@ public class CLI {
                     int sprintID = scanner.nextInt();
                     scanner.nextLine();
 
-                    for (Chat chat : QuerySprint.getChatsBySprint(sprintID)){
+                    for (Chat chat : QuerySprint.getChatsBySprint(sprintID)) {
                         System.out.printf("Chat ID: %d Chat name: %s%n", QueryChats.getChatID(chat), chat.getChatName());
                     }
 
@@ -287,12 +287,21 @@ public class CLI {
                     Chat chat = QueryChats.getSingleChat(chatID);
 
                     if (chat != null) {
-                        chat.setChatMessages(QueryMessages.getMessagesForChat(chatID));
-                        chat.viewChatMessages();
-                    } else {
-                        System.out.println("There is no chat with chatID: " + chatID);
+                        System.out.println("Do you only want to see the important messages in this chat? (J/N)");
+                        String keuze = scanner.nextLine();
+
+                        if (keuze.equalsIgnoreCase("J")) {
+                            chat.setChatMessages(QueryMessages.getMessagesForChat(chatID));
+                            chat.viewHighlightedMessages();
+                        } else {
+                            chat.setChatMessages(QueryMessages.getMessagesForChat(chatID));
+                            chat.viewChatMessages();
+                        }
                     }
-                }
+                    else {
+                            System.out.println("There is no chat with chatID: " + chatID);
+                        }
+                    }
                 case 4 -> {
                     scrumManagementMenu();
                 }

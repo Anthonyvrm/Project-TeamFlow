@@ -35,7 +35,6 @@ public class Chat {
         message.setChat(this);
     }
 
-
     public void viewChatMessages() {
         if (chatMessages != null) {
             for (Message message : chatMessages) {
@@ -46,6 +45,15 @@ public class Chat {
             }
         } else {
             System.out.println("There are no messages in this chat...");
+        }
+    }
+
+    public void viewHighlightedMessages() {
+        System.out.println("These are the important messages in this chat: " + this.getChatName());
+        for (Message message : this.getChatMessages()){
+            if (message.getIsHighlighted()){
+                System.out.printf("* %s: %s\n", message.getUser().getUsername(), message.getMessage());
+            }
         }
     }
 }
