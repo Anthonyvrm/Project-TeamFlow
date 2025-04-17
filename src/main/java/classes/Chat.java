@@ -49,11 +49,16 @@ public class Chat {
     }
 
     public void viewHighlightedMessages() {
+        boolean foundHighlighted = false;
         System.out.println("These are the important messages in this chat: " + this.getChatName());
         for (Message message : this.getChatMessages()){
             if (message.getIsHighlighted()){
                 System.out.printf("* %s: %s\n", message.getUser().getUsername(), message.getMessage());
+                foundHighlighted = true;
             }
+        }
+        if(!foundHighlighted){
+            System.out.println("There are no highlighted messages in this chat...");
         }
     }
 }
