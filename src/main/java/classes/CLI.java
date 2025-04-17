@@ -286,25 +286,33 @@ public class CLI {
 
                 }
                 case 3 -> {
-                   for (Chat chat : QueryChats.getAllChats()){
+                    for (Chat chat : QueryChats.getAllChats()) {
                         System.out.printf("Chat ID: %d Chat name: %s%n", QueryChats.getChatID(chat), chat.getChatName());
-                   }
-                   System.out.println("Enter '0' to view highlighted messages.");
-                   System.out.print("Choose 'chatID' or enter '0': ");
-                   int option = scanner.nextInt();
-                   scanner.nextLine();
+                    }
+                    System.out.println("Enter '0' to view highlighted messages.");
+                    System.out.print("Choose 'chatID' or enter '0': ");
+                    int option = scanner.nextInt();
+                    scanner.nextLine();
 
-                   if (option == 0){
-                       Message.viewHighlighted();
-                   } else {
-                       Chat chat = QueryChats.getSingleChat(option);
-                       if (chat != null) {
-                           chat.setChatMessages(QueryMessages.getMessagesForChat(option));
-                           chat.viewChatMessages();
-                       } else {
-                           System.out.println("There is no chat with chatID: " + option);
-                       }
-                   }
+                    if (option == 0) {
+                        Message.viewHighlighted();
+                    } else {
+                        Chat chat = QueryChats.getSingleChat(option);
+
+                        if (chat != null) {
+                            System.out.println("Do you only want to see the important messages in this chat? (J/N)");
+                            String keuze = scanner.nextLine();
+                            if (keuze.equalsIgnoreCase("J")) {
+                                chat.setChatMessages(QueryMessages.getMessagesForChat(option));
+                                chat.viewHighlightedMessages();
+                            } else {
+                                chat.setChatMessages(QueryMessages.getMessagesForChat(option));
+                                chat.viewChatMessages();
+                            }
+                        } else {
+                            System.out.println("There is no chat with chatID: " + option);
+                        }
+                    }
                 }
                 case 4 -> {
                     scrumManagementMenu();
