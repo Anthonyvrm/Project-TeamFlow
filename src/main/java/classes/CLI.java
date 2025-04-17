@@ -10,7 +10,7 @@ public class CLI {
     Scanner scanner = new Scanner(System.in);
 
     public void userManagementMenu() {
-        System.out.println("\n===== User management =====");
+        System.out.println("\n===== User Management =====");
         System.out.println("1. Add User");
         System.out.println("2. View Users");
         System.out.println("3. Go back");
@@ -47,7 +47,7 @@ public class CLI {
     }
 
     public void scrumManagementMenu() {
-        System.out.println("\n===== Scrum management =====");
+        System.out.println("\n===== Scrum Management =====");
         System.out.println("1. Add Sprint");
         System.out.println("2. Add Epic");
         System.out.println("3. Add User Story");
