@@ -10,7 +10,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class QueryMessages {
+    // Method to retrieve all messages from the database
     public static ArrayList<Message> getAllMessages() {
+        // SQL query to select all messages from the message table
         String sql = "SELECT * FROM Message";
         ArrayList<Message> messages = new ArrayList<>();
 
@@ -32,7 +34,9 @@ public class QueryMessages {
         return messages;
     }
 
+    // Method to retrieve all messages from a specific chat by chatID
     public static ArrayList<Message> getMessagesForChat(int chatID) {
+        // SQL query to select a message with the chatID
         String sql = "SELECT * FROM Message WHERE chatID = ?"; // Use parameterized query
         ArrayList<Message> messages = new ArrayList<Message>();
         try (Connection conn = DatabaseConnection.connect();

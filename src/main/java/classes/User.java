@@ -31,7 +31,7 @@ public class User {
         this.isScrumMaster = isScrumMaster;
     }
 
-
+    // Add message to the user's message list
     public void addMessage(Message message) {
         messages.add(message);
         message.setUser(this);

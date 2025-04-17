@@ -20,6 +20,7 @@ public class UserStory extends BacklogItem implements Linker {
         return this.tasks;
     }
 
+    // Adds a task to the user story
     public void addTask(Task task) {
         this.tasks.add(task);
         task.setUserStory(this);

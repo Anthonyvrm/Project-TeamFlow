@@ -17,6 +17,8 @@ public class Epic extends BacklogItem implements Linker {
         return userStories;
     }
 
+
+    // Adds a Userstory to the epic
     public void addUserStory(UserStory userStory) {
         this.userStories.add(userStory);
         userStory.setEpic(this);

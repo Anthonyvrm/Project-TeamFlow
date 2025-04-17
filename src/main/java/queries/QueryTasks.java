@@ -9,7 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class QueryTasks {
+    // Method to retrieve all tasks from the Task table in the database
     public static ArrayList<Task> getAllTasks() {
+        // SQL query to select all task records from the Task table
         String sql = "SELECT * FROM Task";
         ArrayList<Task> tasks = new ArrayList<>();
         try (Connection conn = DatabaseConnection.connect();

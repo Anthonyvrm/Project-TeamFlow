@@ -11,8 +11,10 @@ import java.sql.SQLException;
 
 public class UserstoryDAO {
     public static void insertUserstory(UserStory userstory) {
+        // SQL query to insert a new userstory into the Userstory table
         String sql = "INSERT INTO Userstory (usName, usDescription, epicID, chatID) VALUES(?,?,?,?)";
 
+        // Set parameters for the INSERT statement using the Userstory object's properties
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, userstory.getName());

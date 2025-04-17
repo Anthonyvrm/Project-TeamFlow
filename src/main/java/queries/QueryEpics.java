@@ -9,7 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class QueryEpics {
+    // Method to retrieve all epics from the database
     public static ArrayList<Epic> getAllEpics() {
+        // SQL query to select all records from the epic
         String sql = "SELECT * FROM Epic";
         ArrayList<Epic> epics = new ArrayList<>();
         try (Connection conn = DatabaseConnection.connect();
@@ -48,7 +50,9 @@ public class QueryEpics {
         return epics;
     }
 
+    // Method to retrieve a single epic from the database with an epicID
     public static Epic getSingleEpic(int epicID){
+        // SQL query to select a single epic with the epicID
         String sql = "SELECT * FROM Epic WHERE epicID = ?";
         Epic epic = null;
         try (Connection conn = DatabaseConnection.connect();
@@ -68,7 +72,9 @@ public class QueryEpics {
         return epic;
     }
 
+    // Method to retrieve the epicID from a specific epic
     public static int getEpicID(Epic epic) {
+        // SQL query to select the epicID from a given epic name
         String sql = "SELECT epicID FROM Epic WHERE epicName = ?";
         int epicID = -1;
         try (Connection conn = DatabaseConnection.connect();

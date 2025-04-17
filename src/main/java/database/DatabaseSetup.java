@@ -5,7 +5,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DatabaseSetup {
+    // Create all necessary tables, if they do not already exist
     public static void createTables() {
+        // Create the User table to store application users
         String createUserTable = """
         CREATE TABLE IF NOT EXISTS User (
             userID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -14,6 +16,7 @@ public class DatabaseSetup {
         );
         """;
 
+        // Create the Sprint table to store project sprints
         String createSprintTable = """
     CREATE TABLE IF NOT EXISTS Sprint (
         sprintID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -25,7 +28,7 @@ public class DatabaseSetup {
     );
     """;
 
-
+        // Create the Chat table to store chats
         String createChatTable = """
         CREATE TABLE IF NOT EXISTS Chat (
             chatID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -33,6 +36,7 @@ public class DatabaseSetup {
         );
         """;
 
+        // Create the Epic table to store epics linked to sprints and chats
         String createEpicTable = """
         CREATE TABLE IF NOT EXISTS Epic (
             epicID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -45,6 +49,7 @@ public class DatabaseSetup {
         );
         """;
 
+        // Create the Userstory table to store userstories linked to epics and tasks
         String createUserstoryTable = """
         CREATE TABLE IF NOT EXISTS Userstory (
             usID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -57,6 +62,7 @@ public class DatabaseSetup {
         );
         """;
 
+        // Create the Task table to store tasks linked to user stories and chats
         String createTaskTable = """
         CREATE TABLE IF NOT EXISTS Task (
             taskID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -68,6 +74,7 @@ public class DatabaseSetup {
         );
         """;
 
+        // Create the Message table to store chat messages
         String createMessageTable = """
         CREATE TABLE IF NOT EXISTS Message (
             messageID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -81,6 +88,7 @@ public class DatabaseSetup {
         );
         """;
 
+        // Execute SQL statements to create the tables
         try (Connection conn = DatabaseConnection.connect();
              Statement stmt = conn.createStatement()) {
             stmt.execute(createUserTable);
@@ -96,6 +104,7 @@ public class DatabaseSetup {
         }
     }
 
+    // Trigger creation of the tables
     public static void main(String[] args) {
         createTables();
     }

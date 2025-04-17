@@ -6,11 +6,13 @@ import database.DatabaseConnection;
 import java.sql.*;
 
 public class ChatDAO {
+    // SQL statement to insert a new Chat entry into the Chat table
     public static void insertChat(Chat chat) {
         String sql = "INSERT INTO Chat(Chatname) VALUES(?)";
 
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            // Set the chat name parameter in the INSERT statement
             pstmt.setString(1, chat.getChatName());
 
             pstmt.executeUpdate();

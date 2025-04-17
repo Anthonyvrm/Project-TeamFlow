@@ -9,7 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class QueryChats {
+    // Method to retrieve all chats from the database
     public static ArrayList<Chat> getAllChats() {
+        // SQL query to select all records from the chat
         String sql = "SELECT * FROM Chat";
         ArrayList<Chat> chats = new ArrayList<>();
 
@@ -28,7 +30,9 @@ public class QueryChats {
         return chats;
     }
 
+    // Method to retrieve a single chat from the database with the chatID
     public static Chat getSingleChat(int chatID) {
+        // SQL query to select a single chat with the chatID
         String sql = "SELECT * FROM Chat WHERE chatID = ?";
         Chat chat = null;
         try (Connection conn = DatabaseConnection.connect();
@@ -52,7 +56,9 @@ public class QueryChats {
         }
     }
 
+    // Method to retrieve chatID from a specific chat
     public static int getChatID(Chat chat) {
+        // SQL query to select the chatID from a given chat name
         String sql = "SELECT chatID FROM Chat WHERE chatName = ?";  // Gebruik parameterized query
         int retrievedChatID = -1;
 

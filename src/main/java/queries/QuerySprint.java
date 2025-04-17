@@ -9,7 +9,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class QuerySprint {
+    // Method to retrieve all sprints from the Sprint table in the database
     public static ArrayList<Sprint> getAllSprints() {
+        // SQL query to select all sprints from the Sprint table in the database
         String sql = "SELECT * FROM Sprint";
         ArrayList<Sprint> sprint = new ArrayList<>();
 
@@ -31,7 +33,9 @@ public class QuerySprint {
         return sprint;
     }
 
+    // Method to retrieve the sprintID based on a given sprint object
     public static int getSprintID(Sprint sprint) {
+        // SQL query to select the sprintID from the Sprint table where the sprintInt matches with
         String sql = "SELECT sprintID FROM Sprint WHERE sprintInt = ?";
 
         try (Connection conn = DatabaseConnection.connect();
@@ -53,7 +57,9 @@ public class QuerySprint {
         return -1;
     }
 
+    // Method to retrieve a single Sprint object by sprintID
     public static Sprint getSingleSprint(int sprintID) {
+        // SQL query to select a single sprint by sprintID
         String sql = "SELECT * FROM Sprint WHERE sprintID = ?";
         Sprint sprint = null;
         try (Connection conn = DatabaseConnection.connect();
