@@ -15,7 +15,7 @@ public class TaskDAO {
         String sql = "INSERT INTO Task(taskDescription,usID) VALUES(?,?)";
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, task.getTaskDescription());
+            pstmt.setString(1, task.getDescription());
             pstmt.setInt(2, QueryUserStory.getUserStoryID(task.getUserStory()));
             pstmt.executeUpdate();
             System.out.println("Task inserted successfully.");
@@ -28,14 +28,14 @@ public class TaskDAO {
         int taskID = -1;
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, task.getTaskDescription());
+            pstmt.setString(1, task.getDescription());
             pstmt.setInt(2, QueryUserStory.getUserStoryID(task.getUserStory()));
             pstmt.executeUpdate();
 
             try (ResultSet keys = pstmt.getGeneratedKeys()) {
                 if (keys.next()) {
                     taskID = keys.getInt(1);
-                    System.out.println("Task created: " + task.getTaskDescription() + " (ID: " + taskID + ")");
+                    System.out.println("Task created: " + task.getDescription() + " (ID: " + taskID + ")");
                 }
             }
 

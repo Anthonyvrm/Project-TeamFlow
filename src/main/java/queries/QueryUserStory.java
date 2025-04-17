@@ -60,7 +60,7 @@ public class QueryUserStory {
         int usID = -1;
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, userstory.getUsName());
+            pstmt.setString(1, userstory.getName());
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {

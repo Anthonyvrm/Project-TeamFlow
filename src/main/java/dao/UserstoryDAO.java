@@ -15,10 +15,10 @@ public class UserstoryDAO {
 
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, userstory.getUsName());
-            pstmt.setString(2, userstory.getUsDescription());
+            pstmt.setString(1, userstory.getName());
+            pstmt.setString(2, userstory.getDescription());
             pstmt.setInt(3, QueryEpics.getEpicID(userstory.getEpic()));
-            pstmt.setInt(4, QueryChats.getChatID(userstory.getUserStoryChat()));
+            pstmt.setInt(4, QueryChats.getChatID(userstory.getChat()));
 
             pstmt.executeUpdate();
             System.out.println("Userstory inserted successfully.");

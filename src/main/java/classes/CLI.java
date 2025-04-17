@@ -147,7 +147,7 @@ public class CLI {
 
                     //print all epics
                     for(Epic epic : QueryEpics.getAllEpics()){
-                        System.out.printf("Epic ID: %d Name: %s%n", QueryEpics.getEpicID(epic), epic.getEpicName());
+                        System.out.printf("Epic ID: %d Name: %s%n", QueryEpics.getEpicID(epic), epic.getName());
                     }
                     //enter the epicID
                     System.out.print("Enter epic ID: ");
@@ -180,7 +180,7 @@ public class CLI {
                     UserStory userstory = QueryUserStory.getSingleUserStory(userStoryID);
                     Chat taskChat = new Chat("Task: " + taskName);
                     ChatDAO.insertChat(taskChat);
-                    Task task = new Task(userstory, taskDescription, taskChat);
+                    Task task = new Task(taskName, taskDescription, taskChat, userstory);
                     TaskDAO.insertTask(task);
 
                 } catch (Exception e) {

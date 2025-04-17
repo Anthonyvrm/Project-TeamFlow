@@ -21,7 +21,7 @@ public class QueryTasks {
                 UserStory userStory = QueryUserStory.getSingleUserStory(rs.getInt("usID"));
                 Chat chat = QueryChats.getSingleChat(rs.getInt("chatID"));
 
-                tasks.add(new Task(userStory, taskDescription, chat));
+                tasks.add(new Task(taskDescription, taskDescription, chat, userStory));
             }
         } catch (SQLException e) {
             System.out.println("Query failed: " + e.getMessage());

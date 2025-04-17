@@ -74,7 +74,7 @@ public class QueryEpics {
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)){
 
-            pstmt.setString(1, epic.getEpicName());
+            pstmt.setString(1, epic.getName());
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
