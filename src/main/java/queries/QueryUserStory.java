@@ -11,8 +11,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class QueryUserStory {
+    // Method to retrieve all userstories from the Userstory table in the database
     public static ArrayList<UserStory> getAllUserStories() {
-
+        // SQL query to select all userstories records from the Userstory table
         String sql = "SELECT * FROM Userstory";
         ArrayList<UserStory> userStories = new ArrayList<>();
         try (Connection conn = DatabaseConnection.connect();
@@ -34,7 +35,9 @@ public class QueryUserStory {
         return userStories;
     }
 
+    // Method to retrieve a single Userstory object by userStoryID
     public static UserStory getSingleUserStory(int userStoryID){
+        // SQL query to select a single userStory by usID
         String sql = "SELECT * FROM Userstory WHERE usID = ?";
         UserStory userStory = null;
         try (Connection conn = DatabaseConnection.connect();
@@ -54,8 +57,9 @@ public class QueryUserStory {
         return userStory;
     }
 
+    // Method to retrieve the userStoryID based on a given userstory object
     public static int getUserStoryID(UserStory userstory) {
-
+        // SQL query to select the usID from the Userstory table where the usName matches with
         String sql = "SELECT usID FROM Userstory WHERE usName = ?";
         int usID = -1;
         try (Connection conn = DatabaseConnection.connect();

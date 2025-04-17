@@ -48,6 +48,7 @@ public class Sprint {
     public void setSprintChat(Chat sprintChat) {
         this.sprintChat = sprintChat;
     }
+    // Checks if the current time is within the start and end dates of the current sprint
     public boolean isCurrent() {
         LocalDateTime now = LocalDateTime.now();
         return (now.isEqual(startDate) || now.isAfter(startDate)) && now.isBefore(endDate);

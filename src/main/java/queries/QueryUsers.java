@@ -10,7 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class QueryUsers {
+    // Method to retrieve all users from the User table in the database
     public static ArrayList<User> getAllUsers() {
+        // SQL query to select all user records from the User table
         String sql = "SELECT * FROM User";
         ArrayList<User> users = new ArrayList<>();
 
@@ -30,7 +32,9 @@ public class QueryUsers {
         return users;
     }
 
+    // Method to retrieve a single User object by userID
     public static User getSingleUser(int userID) {
+        // SQL query to select a single user by sprintID
         String sql = "SELECT * FROM User WHERE userID = ?";  // Gebruik parameterized query
 
         try (Connection conn = DatabaseConnection.connect();
@@ -57,7 +61,9 @@ public class QueryUsers {
         }
     }
 
+    // Method to retrieve the userID based on a given user object
     public static int getUserID(User user) {
+        // SQL query to retrieve userID for the given username
         String sql = "SELECT * FROM User WHERE username = ?";  // Gebruik parameterized query
 
         int retrievedUserID = -1 ;

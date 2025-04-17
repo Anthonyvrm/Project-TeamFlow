@@ -12,9 +12,11 @@ import java.sql.SQLException;
 public class TaskDAO {
 
     public static void insertTask(Task task) {
+        // SQL statement to insert a new Task entry into the Task table
         String sql = "INSERT INTO Task(taskDescription,usID) VALUES(?,?)";
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            // Set parameters for the INSERT statement using the Task object's properties
             pstmt.setString(1, task.getTaskDescription());
             pstmt.setInt(2, QueryUserStory.getUserStoryID(task.getUserStory()));
             pstmt.executeUpdate();
@@ -24,14 +26,17 @@ public class TaskDAO {
         }
     }
     public static int insertTaskAndReturnID(Task task) {
+        // SQL query to insert a new task into the Task table
         String sql = "INSERT INTO Task(taskDescription,usID) VALUES(?,?)";
         int taskID = -1;
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            // Set parameters for the INSERT statement using the Task object's properties
             pstmt.setString(1, task.getTaskDescription());
             pstmt.setInt(2, QueryUserStory.getUserStoryID(task.getUserStory()));
             pstmt.executeUpdate();
 
+            // Retrieve the generated key (task ID)
             try (ResultSet keys = pstmt.getGeneratedKeys()) {
                 if (keys.next()) {
                     taskID = keys.getInt(1);

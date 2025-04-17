@@ -32,6 +32,7 @@ public class User {
     }
 
 
+    // add message to the user's message list
     public void addMessage(Message message) {
         messages.add(message);
         message.setUser(this);

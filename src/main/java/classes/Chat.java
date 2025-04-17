@@ -35,6 +35,7 @@ public class Chat {
         message.setChat(this);
     }
 
+    // view the chat messages
     public void viewChatMessages() {
         if (chatMessages != null) {
             for (Message message : chatMessages) {
@@ -48,6 +49,7 @@ public class Chat {
         }
     }
 
+    // shows the highlighted messages from a specific chat
     public void viewHighlightedMessages() {
         boolean foundHighlighted = false;
         if(chatMessages != null) {

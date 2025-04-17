@@ -41,7 +41,7 @@ public class Message {
         this.chat = chat;
     }
 
-
+    // Activates the highlight status of a message if the current user is a scrummaster
     public void markMessageAsImportant(Message message) {
         if(getUser().getIsScrumMaster()){
             message.setIsHighlighted(!message.getIsHighlighted());
@@ -51,6 +51,7 @@ public class Message {
         }
     }
 
+    // Displays all messages that are currently highlighted
     public static void viewHighlighted(){
         for (Message message : QueryMessages.getAllMessages()){
             if(message.getIsHighlighted()){
