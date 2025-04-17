@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -22,7 +21,7 @@ public class QueryMessages {
             while (rs.next()) {
                 User user = QueryUsers.getSingleUser(rs.getInt("userID"));
                 String message = rs.getString("message");
-                boolean isHighlighted = rs.getBoolean("isHiglighted");
+                boolean isHighlighted = rs.getBoolean("isHighlighted");
                 Chat chat = QueryChats.getSingleChat(rs.getInt("chatID"));
 
                 messages.add(new Message(user, message, isHighlighted, chat));
