@@ -165,44 +165,49 @@ public class CLI {
             }
             case 4 -> {
                 try {
+                    //enter task name
                     System.out.println("Enter task name: ");
                     String taskName = scanner.nextLine();
 
+                    //enter task description
                     System.out.println("Enter the task description: ");
                     String taskDescription = scanner.nextLine();
 
-                    QueryUserStory.getAllUserStories();
+                    //print all userstories
+                    for (UserStory userStory : QueryUserStory.getAllUserStories()){
+                        System.out.printf("Userstory ID: %d Name: %s", QueryUserStory.getUserStoryID(userStory), userStory.getUsName());
+                    }
+                    //enter usID
                     System.out.println("Enter User Story ID: ");
                     int userStoryID = scanner.nextInt();
                     scanner.nextLine();
 
-
+                    //selected Userstory
                     UserStory userstory = QueryUserStory.getSingleUserStory(userStoryID);
-                    Chat taskChat = new Chat("Task: " + taskName);
-                    ChatDAO.insertChat(taskChat);
-                    Task task = new Task(userstory, taskDescription, taskChat);
-                    TaskDAO.insertTask(task);
-
+                    Chat taskChat = new Chat("Task: " + taskName); //create chat object
+                    ChatDAO.insertChat(taskChat); //add chat to database
+                    TaskDAO.insertTask(new Task(userstory, taskDescription, taskChat)); //create task
+                    //error
                 } catch (Exception e) {
                     System.out.println("Error adding task: " + e.getMessage());
                 }
             }
             case 5 -> {
                 try {
+                    //print all sprints
                     System.out.println("Overview of sprints:");
                     for (Sprint sprint : QuerySprint.getAllSprints()) {
-                        String status = sprint.isCurrent() ? "Current" : "Not current";
+                        String status = sprint.isCurrent() ? "Current" : "Not current"; //give status true or false based on Date
                         System.out.printf("Sprint ID: %d, Sprint Int: %d, Status: %s%n",
                                 QuerySprint.getSprintID(sprint), sprint.getSprintInt(), status);
                     }
+                    //error
                 } catch (Exception e) {
                     System.out.println("Error: " + e.getMessage());
                 }
             }
         }
     }
-
-    public void chatMenu() {}
 
     public void mainMenu() {
         System.out.println("\n===== Welcome to TeamFlow =====");
@@ -217,29 +222,33 @@ public class CLI {
 
             switch (choice) {
                 case 1 -> {
+                    //refers to userManagement menu
                     userManagementMenu();
                 }
                 case 2 -> {
+                    //print all users
                     for (User user : QueryUsers.getAllUsers()) {
                         System.out.printf("Username: %s Scrummaster: %b%n", user.getUsername(), user.getIsScrumMaster());
                     }
+                    //enter username
                     System.out.print("Choose username: ");
                     String username = scanner.nextLine();
 
                     User selectedUser = null;
+                    //gets single user
                     for (User user : QueryUsers.getAllUsers()) {
                         if (Objects.equals(username, user.getUsername())) {
                             selectedUser = new User(user.getUsername(), user.getIsScrumMaster());
                             break;
                         }
-                    }
+                    } //error
                     if (selectedUser == null) {
                         System.out.println("User not found. Please try again.");
                         return;
                     }
 
                     String message;
-
+                    //option to highlight if user is a scrummaster
                     if (selectedUser.getIsScrumMaster()) {
                         System.out.println("Do you want to highlight this message? (J/N)");
                         String keuze = scanner.nextLine();
@@ -249,27 +258,28 @@ public class CLI {
                             String highlightedMessage = "*** " + message;
                             System.out.println("Highlighted Message: " + highlightedMessage);
 
+                            //print all chats
                             for (Chat chat : QueryChats.getAllChats()) {
                                 System.out.printf("Chat ID: %d Chat name: %s%n", QueryChats.getChatID(chat), chat.getChatName());
                             }
                             System.out.print("Choose chatID: ");
                             int chatID = scanner.nextInt();
                             Chat selectedChat = QueryChats.getSingleChat(chatID);
-
+                            //error
                             if (selectedChat == null) {
                                 System.out.println("Chat not found. Please try again.");
                                 return;
                             } else {
-                                MessageDAO.insertMessage(new Message(selectedUser, message, true, selectedChat));
+                                MessageDAO.insertMessage(new Message(selectedUser, message, true, selectedChat)); //create message object and add it to database
                                 scanner.nextLine();
                             }
                             return;
                         }
                     }
-
+                    // enter message
                     System.out.print("Enter Message: ");
                     message = scanner.nextLine();
-
+                    //select a chat
                     for (Chat chat : QueryChats.getAllChats()) {
                         System.out.printf("Chat ID: %d Chat name: %s%n", QueryChats.getChatID(chat), chat.getChatName());
                     }
@@ -280,12 +290,13 @@ public class CLI {
                     if (selectedChat == null) {
                         System.out.println("Chat not found. Please try again.");
                     } else {
-                        MessageDAO.insertMessage(new Message(selectedUser, message, false, selectedChat));
+                        MessageDAO.insertMessage(new Message(selectedUser, message, false, selectedChat)); //create message object and add it to database
                         scanner.nextLine();
                     }
 
                 }
                 case 3 -> {
+                    //print all chats
                     for (Chat chat : QueryChats.getAllChats()) {
                         System.out.printf("Chat ID: %d Chat name: %s%n", QueryChats.getChatID(chat), chat.getChatName());
                     }
@@ -293,12 +304,13 @@ public class CLI {
                     System.out.print("Choose 'chatID' or enter '0': ");
                     int option = scanner.nextInt();
                     scanner.nextLine();
-
+                    //print ALL highlighted messages if option = 0
                     if (option == 0) {
                         Message.viewHighlighted();
                     } else {
+                        //selected chat
                         Chat chat = QueryChats.getSingleChat(option);
-
+                        //option to show highlighted messages per chat
                         if (chat != null) {
                             System.out.println("Do you only want to see the important messages in this chat? (J/N)");
                             String keuze = scanner.nextLine();
@@ -309,15 +321,17 @@ public class CLI {
                                 chat.setChatMessages(QueryMessages.getMessagesForChat(option));
                                 chat.viewChatMessages();
                             }
-                        } else {
+                        } else { //error
                             System.out.println("There is no chat with chatID: " + option);
                         }
                     }
                 }
                 case 4 -> {
+                    //refers scrum management menu
                     scrumManagementMenu();
                 }
                 case 5 -> {
+                    //closes application
                     System.out.println("Exiting...");
                     scanner.close();
                 }
