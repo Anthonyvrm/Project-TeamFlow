@@ -1,6 +1,7 @@
 package classes;
 
 import dao.MessageDAO;
+import queries.QueryMessages;
 
 public class Message {
     private User user;
@@ -24,9 +25,6 @@ public class Message {
 
     public String getMessage() {
         return this.message;
-    }
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     public boolean getIsHighlighted() {
@@ -53,8 +51,11 @@ public class Message {
         }
     }
 
-
-    public void sendMessageToChat() {
-        MessageDAO.insertMessage(this.user, this.message, this.isHighlighted, this.chat);
+    public static void viewHighlighted(){
+        for (Message message : QueryMessages.getAllMessages()){
+            if(message.getIsHighlighted()){
+                System.out.printf("%s: %s%n", message.getUser().getUsername(), message.getMessage());
+            }
+        }
     }
 }

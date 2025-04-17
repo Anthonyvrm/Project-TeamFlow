@@ -7,7 +7,7 @@ public class User {
 
     private String username;
     private boolean isScrumMaster;
-    private List<Message> messages;
+    private ArrayList<Message> messages;
 
     public User(String username, boolean isScrumMaster) {
         this.username = username;

@@ -1,5 +1,7 @@
 package classes;
 
+import queries.QueryChats;
+
 import java.util.ArrayList;
 
 public class Chat {
@@ -33,14 +35,33 @@ public class Chat {
         message.setChat(this);
     }
 
-
     public void viewChatMessages() {
-        for (Message message : chatMessages) {
-            if (message.getIsHighlighted()) {
-                System.out.print("*");
+        if (chatMessages != null) {
+            for (Message message : chatMessages) {
+                if (message.getIsHighlighted()) {
+                    System.out.print("*");
+                }
+                System.out.printf("%s: %s%n", message.getUser().getUsername(), message.getMessage());
             }
-            System.out.print(message.getUser().getUsername() + ": ");
-            System.out.println(message.getMessage());
+        } else {
+            System.out.println("There are no messages in this chat...");
+        }
+    }
+
+    public void viewHighlightedMessages() {
+        boolean foundHighlighted = false;
+        if(chatMessages != null) {
+
+            System.out.println("These are the important messages in this chat: " + this.getChatName());
+            for (Message message : this.getChatMessages()) {
+                if (message.getIsHighlighted()) {
+                    System.out.printf("* %s: %s\n", message.getUser().getUsername(), message.getMessage());
+                    foundHighlighted = true;
+                }
+            }
+        }
+        if (!foundHighlighted) {
+            System.out.println("There are no highlighted messages in this chat...");
         }
     }
 }

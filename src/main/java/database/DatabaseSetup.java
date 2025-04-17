@@ -19,7 +19,9 @@ public class DatabaseSetup {
         sprintID INTEGER PRIMARY KEY AUTOINCREMENT,
         sprintInt INTEGER NOT NULL,
         startDate TIMESTAMP NOT NULL,
-        endDate TIMESTAMP NOT NULL
+        endDate TIMESTAMP NOT NULL,
+        chatID INTEGER,
+        FOREIGN KEY (chatID) REFERENCES CHAT(chatID)
     );
     """;
 
@@ -27,9 +29,7 @@ public class DatabaseSetup {
         String createChatTable = """
         CREATE TABLE IF NOT EXISTS Chat (
             chatID INTEGER PRIMARY KEY AUTOINCREMENT,
-            chatName TEXT NOT NULL,
-            sprintID INTEGER,
-            FOREIGN KEY (sprintID) REFERENCES Sprint(sprintID)
+            chatName TEXT NOT NULL
         );
         """;
 
@@ -60,7 +60,6 @@ public class DatabaseSetup {
         String createTaskTable = """
         CREATE TABLE IF NOT EXISTS Task (
             taskID INTEGER PRIMARY KEY AUTOINCREMENT,
-            taskName TEXT NOT NULL,
             taskDescription TEXT NOT NULL,
             usID INTEGER,
             chatID INTEGER,

@@ -9,7 +9,7 @@ public class Sprint {
     private Chat sprintChat;
 
 
-    public Sprint(int sprintInt, LocalDateTime startDate, Chat sprintChat) {
+    public Sprint(int sprintInt, LocalDateTime startDate, LocalDateTime endDate, Chat sprintChat) {
         this.sprintInt = sprintInt;
         this.startDate = startDate;
         this.endDate = startDate.plusDays(14);
@@ -47,5 +47,9 @@ public class Sprint {
 
     public void setSprintChat(Chat sprintChat) {
         this.sprintChat = sprintChat;
+    }
+    public boolean isCurrent() {
+        LocalDateTime now = LocalDateTime.now();
+        return (now.isEqual(startDate) || now.isAfter(startDate)) && now.isBefore(endDate);
     }
 }

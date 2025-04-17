@@ -1,41 +1,19 @@
 package classes;
 
 import java.util.ArrayList;
-import java.util.List;
+public class Epic extends BacklogItem implements Linker {
 
-public class Epic implements Linker {
-
-    private String epicName;
-    private String epicDescription;
-    private List<UserStory> userStories;
+    private ArrayList<UserStory> userStories;
     private Sprint sprint;
-    private Chat epicChat;
 
-    public Epic(String epicName, String epicDescription, Sprint sprint, Chat epicChat) {
-        this.epicName = epicName;
-        this.epicDescription = epicDescription;
+    public Epic(String name, String description, Sprint sprint, Chat chat) {
+        super(name, description, chat); // Oproep naar de constructor van BacklogItem
         this.sprint = sprint;
-        this.epicChat = epicChat;
         this.userStories = new ArrayList<>();
     }
 
-    public String getEpicName() {
-        return epicName;
-    }
-
-    public void setEpicName(String epicName) {
-        this.epicName = epicName;
-    }
-
-    public String getEpicDescription() {
-        return epicDescription;
-    }
-
-    public void setEpicDescription(String epicDescription) {
-        this.epicDescription = epicDescription;
-    }
-
-    public List<UserStory> getUserStories() {
+    // Gebruik de geërfde methoden voor name, description, and chat
+    public ArrayList<UserStory> getUserStories() {
         return userStories;
     }
 
@@ -50,14 +28,6 @@ public class Epic implements Linker {
 
     public void setSprint(Sprint sprint) {
         this.sprint = sprint;
-    }
-
-    public Chat getEpicChat() {
-        return epicChat;
-    }
-
-    public void setEpicChat(Chat epicChat) {
-        this.epicChat = epicChat;
     }
 
     @Override
