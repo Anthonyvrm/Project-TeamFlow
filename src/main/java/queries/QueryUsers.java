@@ -20,6 +20,7 @@ public class QueryUsers {
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
+            // Loop through the results and create User objects
             while (rs.next()) {
                 String username = rs.getString("username");
                 boolean isScrumMaster = rs.getBoolean("isScrumMaster");
@@ -35,23 +36,24 @@ public class QueryUsers {
     // Method to retrieve a single User object by userID
     public static User getSingleUser(int userID) {
         // SQL query to select a single user by sprintID
-        String sql = "SELECT * FROM User WHERE userID = ?";  // Gebruik parameterized query
+        String sql = "SELECT * FROM User WHERE userID = ?";
 
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, userID); // Stel de username in als parameter
+            // Set the userID parameter in the query
+            pstmt.setInt(1, userID);
 
+            // Retrieve data from results and create and return new user object
             try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) { // Controleer of er een gebruiker is gevonden
+                if (rs.next()) {
                     String retrievedUsername = rs.getString("username");
                     boolean isScrumMaster = rs.getBoolean("isScrumMaster");
 
-                    // Maak en retourneer een User-object
                     return new User(retrievedUsername, isScrumMaster);
                 } else {
                     System.out.println("User not found.");
-                    return null;  // Return null als geen gebruiker gevonden is
+                    return null;  // Return null if no user has been found
                 }
             }
 
@@ -71,16 +73,17 @@ public class QueryUsers {
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, user.getUsername()); // Stel de username in als parameter
+            // Set the username parameter in the query
+            pstmt.setString(1, user.getUsername());
 
+            // Retrieve the userID from the results
             try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) { // Controleer of er een gebruiker is gevonden
+                if (rs.next()) { // Control if a user has been found
                     retrievedUserID = rs.getInt("userID");
-                    // Maak en retourneer een User-object
                     return retrievedUserID;
                 } else {
                     System.out.println("User not found.");
-                    return retrievedUserID;  // Return null als geen gebruiker gevonden is
+                    return retrievedUserID;  // Return null if no user has been found
                 }
             }
 

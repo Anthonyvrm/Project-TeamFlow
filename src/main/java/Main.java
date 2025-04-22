@@ -9,7 +9,7 @@ public class Main {
         // Initialize the database
         DatabaseSetup.createTables();
 
-        //Genereer het menu
+        //Generate the menu
         CLI.main();
     }
 }

@@ -19,6 +19,7 @@ public class QuerySprint {
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
+            // Loop through result set and create Sprint objects
             while (rs.next()) {
                 int sprintInt = rs.getInt("sprintInt");
                 LocalDateTime startDate = rs.getTimestamp("startDate").toLocalDateTime();
@@ -44,6 +45,7 @@ public class QuerySprint {
             pstmt.setInt(1, sprint.getSprintInt());
             ResultSet rs = pstmt.executeQuery();
 
+            // Return sprintID if found
             if (rs.next()) {
                 return rs.getInt("sprintID");
             } else {
@@ -68,6 +70,7 @@ public class QuerySprint {
             pstmt.setInt(1, sprintID);
             ResultSet rs = pstmt.executeQuery();
 
+            // Create Sprint object if found
             if (rs.next()) {
                 int sprintInt = rs.getInt("sprintInt");
                 Timestamp start = rs.getTimestamp("startDate");
@@ -101,6 +104,7 @@ public class QuerySprint {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, sprintId);
             ResultSet rs = pstmt.executeQuery();
+            // Add each chat found to the list
             while (rs.next()) {
                 int chatID = rs.getInt("chatID");
                 chats.add(QueryChats.getSingleChat(chatID));

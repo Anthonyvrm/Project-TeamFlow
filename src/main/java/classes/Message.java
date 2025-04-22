@@ -54,6 +54,7 @@ public class Message {
 
     // Displays all messages that are currently highlighted
     public static void viewHighlighted(){
+        // Iterate through all messages
         for (Message message : QueryMessages.getAllMessages()){
             if(message.getIsHighlighted()){
                 System.out.printf("%s: %s%n", message.getUser().getUsername(), message.getMessage());

@@ -18,9 +18,10 @@ public class QueryChats {
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
+            // Iterate through all rows in the ResultSet
             while (rs.next()) {
-                String chatName = rs.getString("chatName");
-                Chat chat = new Chat(chatName);
+                String chatName = rs.getString("chatName"); // Get chatName
+                Chat chat = new Chat(chatName); // Create Chat object
                 chats.add(chat);
             }
 
@@ -41,7 +42,7 @@ public class QueryChats {
             pstmt.setInt(1, chatID);
 
             try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
+                if (rs.next()) { // If chat exists
                     String retrievedChatName = rs.getString("chatName");
                     chat = new Chat(retrievedChatName);
                 } else {

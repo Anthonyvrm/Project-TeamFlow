@@ -18,6 +18,7 @@ public class QueryTasks {
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
+            // Loop through the results and create Task objects
             while (rs.next()) {
                 String taskDescription = rs.getString("taskDescription");
                 UserStory userStory = QueryUserStory.getSingleUserStory(rs.getInt("usID"));

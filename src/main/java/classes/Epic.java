@@ -7,18 +7,18 @@ public class Epic extends BacklogItem implements Linker {
     private Sprint sprint;
 
     public Epic(String name, String description, Sprint sprint, Chat chat) {
-        super(name, description, chat); // Oproep naar de constructor van BacklogItem
+        super(name, description, chat); // Call to constructor from BacklogItem
         this.sprint = sprint;
         this.userStories = new ArrayList<>();
     }
 
-    // Gebruik de geërfde methoden voor name, description, and chat
+    // Use inherited methods for name, description, and chat
     public ArrayList<UserStory> getUserStories() {
         return userStories;
     }
 
 
-    // Adds a Userstory to the epic
+    // Adds an Userstory to the epic
     public void addUserStory(UserStory userStory) {
         this.userStories.add(userStory);
         userStory.setEpic(this);
@@ -34,6 +34,6 @@ public class Epic extends BacklogItem implements Linker {
 
     @Override
     public void linkMessage() {
-        // Implementatie indien er specifieke logica nodig is om berichten te koppelen.
+        // Implementation if specific logic is needed to connect messages.
     }
 }

@@ -20,6 +20,7 @@ public class QueryMessages {
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
+            // Loop through results and create message objects
             while (rs.next()) {
                 User user = QueryUsers.getSingleUser(rs.getInt("userID"));
                 String message = rs.getString("message");
@@ -49,6 +50,7 @@ public class QueryMessages {
 
                 boolean hasMessages = false; // To check if any messages exist
 
+                // Loop through messages and create message objects
                 while (rs.next()) {
                     hasMessages = true;
 

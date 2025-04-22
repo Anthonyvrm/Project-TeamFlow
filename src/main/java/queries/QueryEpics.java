@@ -19,12 +19,15 @@ public class QueryEpics {
              ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
+                // Get epic details from database
                 String epicName = rs.getString("epicName");
                 String epicDescription = rs.getString("epicDescription");
+                // Get sprint and chat objects
                 Sprint sprint = QuerySprint.getSingleSprint(rs.getInt("sprintID"));
                 Chat chat = QueryChats.getSingleChat(rs.getInt("chatID"));
+                // Create a new epic and add to list
                 Epic epic = new Epic(epicName, epicDescription, sprint, chat);
-                epics.add(epic);
+                epics.add(epic); // Create and add new epic to list
             }
         } catch (SQLException e) {
             System.out.println("Query failed: " + e.getMessage());
@@ -32,7 +35,9 @@ public class QueryEpics {
         return epics;
     }
 
+    // Gets all epics connected with a specific sprint
     public static ArrayList<Epic> getEpicsBySprint(int sprintId) {
+        // Query for epic IDs
         String sql = "SELECT epicID FROM Sprint WHERE sprintID = ?";
         ArrayList<Epic> epics = new ArrayList<>();
 
@@ -42,6 +47,7 @@ public class QueryEpics {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 int epicID = rs.getInt("epicID");
+                // Add epic
                 epics.add(QueryEpics.getSingleEpic(epicID));
             }
         } catch (SQLException e) {
@@ -57,8 +63,10 @@ public class QueryEpics {
         Epic epic = null;
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            // Set epicID parameter
             pstmt.setInt(1, epicID);
             ResultSet rs = pstmt.executeQuery();
+            // If epic found, create Epic object
             while (rs.next()){
                 String epicName = rs.getString("epicName");
                 String epicDescription = rs.getString("epicDescription");
@@ -69,7 +77,7 @@ public class QueryEpics {
         } catch (SQLException e) {
             System.out.println("Query mislukt: " + e.getMessage());
         }
-        return epic;
+        return epic; // Returns null if epic doesn't exist
     }
 
     // Method to retrieve the epicID from a specific epic
@@ -80,9 +88,10 @@ public class QueryEpics {
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)){
 
+            // Set name parameter
             pstmt.setString(1, epic.getName());
-
             ResultSet rs = pstmt.executeQuery();
+            // Get the epicID if found
             while (rs.next()) {
                 epicID = rs.getInt("epicID");
             }

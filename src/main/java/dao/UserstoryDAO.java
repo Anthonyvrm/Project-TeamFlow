@@ -13,10 +13,9 @@ public class UserstoryDAO {
     public static void insertUserstory(UserStory userstory) {
         // SQL query to insert a new userstory into the Userstory table
         String sql = "INSERT INTO Userstory (usName, usDescription, epicID, chatID) VALUES(?,?,?,?)";
-
-        // Set parameters for the INSERT statement using the Userstory object's properties
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            // Set parameters for the INSERT statement using the Userstory object's properties
             pstmt.setString(1, userstory.getName());
             pstmt.setString(2, userstory.getDescription());
             pstmt.setInt(3, QueryEpics.getEpicID(userstory.getEpic()));

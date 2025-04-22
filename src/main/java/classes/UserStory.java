@@ -7,7 +7,7 @@ public class UserStory extends BacklogItem implements Linker {
     private Epic epic;
 
     public UserStory(String name, String description, Chat chat, Epic epic) {
-        super(name, description, chat); // Oproep naar de constructor van BacklogItem
+        super(name, description, chat); // Call to constructor from BacklogItem
         this.epic = epic;
         this.tasks = new ArrayList<>();
     }
@@ -36,6 +36,6 @@ public class UserStory extends BacklogItem implements Linker {
 
     @Override
     public void linkMessage() {
-        // Implementeer hier de koppellogica indien nodig.
+        // Implement if connect logic is needed
     }
 }

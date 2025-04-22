@@ -24,13 +24,14 @@ public class ChatDAO {
     }
     public static int insertChatAndReturnID(String chatName) {
         String sql = "INSERT INTO Chat(chatName) VALUES(?)";
-        int chatID = -1;
+        int chatID = -1; // Failure value
 
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, chatName);
             pstmt.executeUpdate();
 
+            // Retrieve the generated chat ID
             try (ResultSet keys = pstmt.getGeneratedKeys()) {
                 if (keys.next()) {
                     chatID = keys.getInt(1);
@@ -41,7 +42,7 @@ public class ChatDAO {
             System.out.println("Chat insert failed: " + e.getMessage());
         }
 
-        return chatID;
+        return chatID; // Returns -1 on failure
     }
 }
 

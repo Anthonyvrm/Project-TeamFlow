@@ -37,14 +37,16 @@ public class Chat {
 
     // view the chat messages
     public void viewChatMessages() {
-        if (chatMessages != null) {
+        if (chatMessages != null) { // Check if messages exist
             for (Message message : chatMessages) {
                 if (message.getIsHighlighted()) {
                     System.out.print("*");
                 }
+                // Show message: "Username: Message"
                 System.out.printf("%s: %s%n", message.getUser().getUsername(), message.getMessage());
             }
         } else {
+            // Show message if no messages were found in the chat
             System.out.println("There are no messages in this chat...");
         }
     }
@@ -57,11 +59,13 @@ public class Chat {
             System.out.println("These are the important messages in this chat: " + this.getChatName());
             for (Message message : this.getChatMessages()) {
                 if (message.getIsHighlighted()) {
+                    // Show highlighted message like this: "* Username: message"
                     System.out.printf("* %s: %s\n", message.getUser().getUsername(), message.getMessage());
                     foundHighlighted = true;
                 }
             }
         }
+        // Show message if no highlighted messages were found
         if (!foundHighlighted) {
             System.out.println("There are no highlighted messages in this chat...");
         }

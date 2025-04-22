@@ -20,6 +20,7 @@ public class QueryUserStory {
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
+            // Loop through the results and create and add UserStory objects to the list
             while (rs.next()) {
                 String usName = rs.getString("usName");
                 String usDescription = rs.getString("usDescription");
@@ -44,11 +45,14 @@ public class QueryUserStory {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, userStoryID);
             ResultSet rs = pstmt.executeQuery();
+
             while (rs.next()){
                 String usName = rs.getString("usName");
                 String usDescription = rs.getString("usDescription");
+                // Retrieve the needed Epic and Chat objects
                 Epic epic = QueryEpics.getSingleEpic(rs.getInt("epicID"));
                 Chat chat = QueryChats.getSingleChat(rs.getInt("chatID"));
+                // Create the Userstory object
                 userStory = new UserStory(usName, usDescription, chat, epic);
             }
         } catch (SQLException e) {
@@ -66,6 +70,7 @@ public class QueryUserStory {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, userstory.getName());
 
+            // Execute query and get usID
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 usID = rs.getInt("usID");
